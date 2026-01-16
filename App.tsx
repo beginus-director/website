@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Instagram, Mail, Phone, Plus, Minus, Menu, X, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Instagram, Mail, Phone, Plus, Minus, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PROJECTS, SERVICES, WORK_PROCESS } from './constants';
 import { Project, CaseStudy } from './types';
 
@@ -37,19 +37,143 @@ const Navbar = () => {
   );
 };
 
-const SectionHeader = ({ title, subtitle }: { title: string; subtitle?: React.ReactNode }) => (
+const SectionHeader = ({ title, subtitle, light }: { title: string; subtitle?: React.ReactNode; light?: boolean }) => (
   <div className="mb-16">
-    <h2 className="heading-lg mb-6">{title}</h2>
-    {subtitle && <p className="text-xl text-gray-500 max-w-2xl leading-relaxed">{subtitle}</p>}
+    <h2 className={`heading-lg mb-6 ${light ? 'text-morningSky' : 'text-brandBlack'}`}>{title}</h2>
+    {subtitle && <p className={`text-xl max-w-2xl leading-relaxed ${light ? 'text-morningSky/80' : 'text-gray-500'}`}>{subtitle}</p>}
   </div>
 );
 
+const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; index: number; onClose: () => void }) => {
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = 'unset'; };
+  }, []);
+
+  const caseId = (index + 1).toString().padStart(2, '0');
+
+  const nextImg = () => {
+    setCurrentImgIndex((prev) => (prev + 1) % caseStudy.images.length);
+  };
+
+  const prevImg = () => {
+    setCurrentImgIndex((prev) => (prev - 1 + caseStudy.images.length) % caseStudy.images.length);
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+      <div className="absolute inset-0 bg-brandBlack/80 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-3xl shadow-2xl overflow-hidden animate-fade-in flex flex-col md:flex-row">
+        <button onClick={onClose} className="absolute top-6 right-6 z-[110] p-2 bg-brandBlack text-white rounded-full hover:bg-morningSky transition-colors">
+          <X size={24} />
+        </button>
+        
+        {/* Carousel Section */}
+        <div className="w-full md:w-3/5 relative group bg-black flex items-center justify-center aspect-square md:aspect-auto overflow-hidden">
+          <div className="absolute inset-0 flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentImgIndex * 100}%)` }}>
+            {caseStudy.images.map((img, i) => (
+              <img 
+                key={i}
+                src={img} 
+                alt={`${caseStudy.title} - ${i + 1}`} 
+                className="w-full h-full object-cover flex-shrink-0" 
+              />
+            ))}
+          </div>
+          
+          {caseStudy.images.length > 1 && (
+            <>
+              <button 
+                onClick={prevImg}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all opacity-0 group-hover:opacity-100 z-10"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button 
+                onClick={nextImg}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all opacity-0 group-hover:opacity-100 z-10"
+              >
+                <ChevronRight size={24} />
+              </button>
+              
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                {caseStudy.images.map((_, i) => (
+                  <button 
+                    key={i}
+                    onClick={() => setCurrentImgIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-all ${i === currentImgIndex ? 'bg-white w-6' : 'bg-white/40'}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+        
+        {/* Content Section */}
+        <div className="w-full md:w-2/5 p-8 md:p-12 overflow-y-auto bg-beginningIvory">
+          <div className="mb-10">
+            <h4 className="text-morningSky font-extrabold uppercase tracking-widest text-sm mb-2">CASE {caseId} | {caseStudy.partner.split('|')[0].trim()}</h4>
+            <h3 className="text-3xl font-extrabold text-brandBlack leading-tight">{caseStudy.title}</h3>
+          </div>
+
+          <div className="space-y-10">
+            <div className="grid grid-cols-1 gap-6">
+              <div>
+                <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-2">Featured Partner</h5>
+                <p className="text-brandBlack font-bold">{caseStudy.partner}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-2">Artist</h5>
+                  <p className="text-brandBlack font-bold">{caseStudy.artist}</p>
+                </div>
+                <div>
+                  <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-2">Collaboration Type</h5>
+                  <p className="text-brandBlack font-bold">{caseStudy.type}</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-3">Project Overview</h5>
+              <p className="text-gray-600 leading-relaxed">{caseStudy.overview}</p>
+            </div>
+
+            <div>
+              <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-4">Key Achievement</h5>
+              <ul className="space-y-3">
+                {caseStudy.achievements.map((ach, idx) => (
+                  <li key={idx} className="flex items-start">
+                    <CheckCircle2 className="text-morningSky mr-3 flex-shrink-0 mt-0.5" size={18} />
+                    <span className="text-brandBlack font-medium">{ach}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          
+          <div className="mt-12 pt-8 border-t border-gray-200">
+             <button onClick={onClose} className="w-full py-4 bg-brandBlack text-white rounded-full font-bold hover:bg-morningSky transition-colors">
+               Close Details
+             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [activeProcess, setActiveProcess] = useState<number | null>(0);
+  const [selectedCase, setSelectedCase] = useState<{case: CaseStudy, index: number} | null>(null);
 
   return (
     <div className="antialiased text-brandBlack">
       <Navbar />
+
+      {selectedCase && <CaseStudyModal caseStudy={selectedCase.case} index={selectedCase.index} onClose={() => setSelectedCase(null)} />}
 
       {/* Hero Section */}
       <section id="hero" className="pt-40 pb-24 md:pt-60 md:pb-40 bg-morningSky px-6">
@@ -71,22 +195,25 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Intro Bar */}
+      {/* Intro Bar (Marquee) */}
       <div className="bg-brandBlack text-white py-12 px-6 overflow-hidden">
         <div className="flex whitespace-nowrap space-x-12 animate-marquee items-center text-sm font-bold uppercase tracking-widest">
-          <span>Editorial Sensibility</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
-          <span>UX Logic</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
-          <span>Marketing Performance</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
-          <span>Brand Identity</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
-          <span>Content Strategy</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
-          <span>Editorial Sensibility</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
-          <span>UX Logic</span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
+          <span className="w-2 h-2 rounded-full bg-morningSky"></span>
+          <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
+          <span className="w-2 h-2 rounded-full bg-morningSky"></span>
         </div>
       </div>
 
@@ -165,12 +292,12 @@ const App: React.FC = () => {
           <div className="order-1 md:order-2">
             <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 shadow-sm mt-4">
               <img 
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1288&auto=format&fit=crop" 
+                src="https://raw.githubusercontent.com/beginus-director/website/ebd9366d327e97bb73b7e8a87e15152c39cc08a8/my-profile-f.png" 
                 alt="Director Lee Jiyoung" 
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "https://images.unsplash.com/photo-1598550874175-4d0fe4a2c90b?q=80&w=1288&auto=format&fit=crop";
+                  target.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1288&auto=format&fit=crop";
                 }}
               />
             </div>
@@ -179,63 +306,77 @@ const App: React.FC = () => {
       </section>
 
       {/* Featured Work Section */}
-      <section id="work" className="py-32 px-6 bg-gray-50">
+      <section id="work" className="py-32 px-6 bg-brandBlack">
         <div className="max-w-7xl mx-auto">
           <SectionHeader 
             title="The Work." 
-            subtitle="브랜드의 철학을 담아낸 협업 사례들입니다."
+            light={true}
+            subtitle={
+              <span className="whitespace-pre-line">
+                Brand storytelling & content strategy{"\n"}
+                across editorial, social media & digital marketing.
+              </span>
+            }
           />
           
           <div className="space-y-32">
             {PROJECTS.map((project) => (
               <div key={project.id} className="group">
                 <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
-                  <div className="order-2 md:order-1">
-                    <span className="inline-block px-4 py-1 rounded-full border border-brandBlack text-xs font-bold uppercase mb-6">Featured Project</span>
-                    <h3 className="text-5xl font-extrabold mb-6 tracking-tight">{project.title}</h3>
-                    <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                      {project.challenge} 해결을 위해 {project.approach}를 통해 {project.result} 성과를 달성했습니다.
+                  <div className="order-2 md:order-1 text-morningSky">
+                    <span className="inline-block px-4 py-1 rounded-full border border-morningSky text-xs font-bold uppercase mb-6">Featured Project</span>
+                    <h3 className="text-5xl font-extrabold mb-6 tracking-tight text-white">{project.title}</h3>
+                    <p className="text-xl text-morningSky/90 mb-8 leading-relaxed whitespace-pre-line">
+                      {project.description}
                     </p>
                     <div className="grid grid-cols-2 gap-6 text-sm">
                       <div>
-                        <p className="font-bold text-gray-400 uppercase tracking-wider mb-1">Period</p>
-                        <p>{project.period}</p>
+                        <p className="font-extrabold text-morningSky uppercase tracking-wider mb-1">Period</p>
+                        <p className="text-morningSky/80">{project.period}</p>
                       </div>
                       <div>
-                        <p className="font-bold text-gray-400 uppercase tracking-wider mb-1">Client</p>
-                        <p>{project.client}</p>
+                        <p className="font-extrabold text-morningSky uppercase tracking-wider mb-1">Client</p>
+                        <p className="text-morningSky/80">{project.client}</p>
                       </div>
                       <div className="col-span-2">
-                        <p className="font-bold text-gray-400 uppercase tracking-wider mb-1">Scope</p>
-                        <p>{project.scope.join(' / ')}</p>
+                        <p className="font-extrabold text-morningSky uppercase tracking-wider mb-1">Scope</p>
+                        <p className="text-morningSky/80">{project.scope.join(' / ')}</p>
                       </div>
                     </div>
                   </div>
-                  <div className="order-1 md:order-2 overflow-hidden rounded-2xl aspect-[3/2] bg-morningSky shadow-2xl transition-transform group-hover:scale-[1.02]">
+                  <div className="order-1 md:order-2 overflow-hidden rounded-2xl aspect-[3/2] bg-morningSky shadow-2xl transition-transform group-hover:scale-[1.01]">
                     <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
                   </div>
                 </div>
 
                 {/* Case Study Cards */}
-                <div className="grid md:grid-cols-2 gap-8">
-                  {project.caseStudies?.map((caseStudy) => (
-                    <div key={caseStudy.id} className="bg-white p-10 rounded-2xl border border-gray-100 hover:border-morningSky transition-colors">
-                      <div className="flex justify-between items-start mb-6">
-                        <div>
-                          <h4 className="text-sm font-bold text-morningSky uppercase tracking-widest mb-1">{caseStudy.subtitle}</h4>
-                          <h3 className="text-2xl font-bold">{caseStudy.title}</h3>
-                        </div>
-                        <ArrowUpRight className="text-gray-300" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {project.caseStudies?.map((caseStudy, cIdx) => (
+                    <div 
+                      key={caseStudy.id} 
+                      className="group/card bg-beginningIvory rounded-3xl overflow-hidden hover:ring-4 hover:ring-morningSky/30 transition-all cursor-pointer"
+                      onClick={() => setSelectedCase({case: caseStudy, index: cIdx})}
+                    >
+                      <div className="aspect-[16/9] overflow-hidden">
+                        <img 
+                          src={caseStudy.thumbnail} 
+                          alt={caseStudy.title} 
+                          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" 
+                        />
                       </div>
-                      <p className="text-gray-500 text-sm mb-6 leading-relaxed">{caseStudy.overview}</p>
-                      <ul className="space-y-2">
-                        {caseStudy.achievements.map((item, idx) => (
-                          <li key={idx} className="flex items-center text-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-earlySky mr-3 flex-shrink-0"></span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="p-8 md:p-10 flex justify-between items-start">
+                        <div>
+                          <h4 className="text-sm font-bold text-morningSky uppercase tracking-widest mb-2 leading-tight">
+                            {caseStudy.title}
+                          </h4>
+                          <h3 className="text-2xl font-extrabold text-brandBlack leading-tight">
+                            {caseStudy.subtitle}
+                          </h3>
+                        </div>
+                        <div className="bg-brandBlack p-3 rounded-full text-white group-hover/card:bg-morningSky transition-colors ml-4 flex-shrink-0">
+                          <ArrowUpRight size={20} />
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -245,8 +386,8 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Method Section (Accordion style) */}
-      <section className="py-32 bg-brandBlack text-white px-6">
+      {/* Method Section */}
+      <section className="py-32 bg-brandBlack text-white px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-20">
             <div>

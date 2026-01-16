@@ -10,6 +10,7 @@ export interface Project {
   challenge?: string;
   approach?: string;
   result?: string;
+  description?: string;
   image: string;
   caseStudies?: CaseStudy[];
 }
@@ -18,7 +19,9 @@ export interface CaseStudy {
   id: string;
   title: string;
   subtitle: string;
-  client: string;
+  thumbnail: string;
+  images: string[];
+  partner: string;
   artist: string;
   type: string;
   overview: string;
