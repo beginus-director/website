@@ -1,8 +1,88 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Instagram, Mail, Phone, Plus, Minus, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PROJECTS, SERVICES, WORK_PROCESS } from './constants';
 import { Project, CaseStudy } from './types';
+
+const CustomCursor = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isPointer, setIsPointer] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
+  const cursorRef = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
+  const [trailingPos, setTrailingPos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+      cursorRef.current = { x: e.clientX, y: e.clientY };
+      setIsHidden(false);
+
+      const target = e.target as HTMLElement;
+      const isClickable = 
+        target.closest('a') || 
+        target.closest('button') || 
+        window.getComputedStyle(target).cursor === 'pointer';
+      setIsPointer(!!isClickable);
+    };
+
+    const onMouseLeave = () => setIsHidden(true);
+    const onMouseEnter = () => setIsHidden(false);
+
+    window.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseleave', onMouseLeave);
+    document.addEventListener('mouseenter', onMouseEnter);
+
+    // Smooth trailing effect
+    let frameId: number;
+    const followMouse = () => {
+      setTrailingPos(prev => ({
+        x: prev.x + (cursorRef.current.x - prev.x) * 0.15,
+        y: prev.y + (cursorRef.current.y - prev.y) * 0.15,
+      }));
+      frameId = requestAnimationFrame(followMouse);
+    };
+    frameId = requestAnimationFrame(followMouse);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseleave', onMouseLeave);
+      document.removeEventListener('mouseenter', onMouseEnter);
+      cancelAnimationFrame(frameId);
+    };
+  }, []);
+
+  if (typeof window !== 'undefined' && 'ontouchstart' in window) return null;
+
+  // Base size of the 3D sphere
+  const sphereSize = 24;
+
+  return (
+    <>
+      {/* 3D Sphere Cursor */}
+      <div 
+        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] transition-transform duration-200 ease-out ${isHidden ? 'opacity-0' : 'opacity-100'}`}
+        style={{ 
+          width: `${sphereSize}px`,
+          height: `${sphereSize}px`,
+          transform: `translate3d(${position.x - sphereSize/2}px, ${position.y - sphereSize/2}px, 0) scale(${isPointer ? 1.8 : 1})`,
+          background: 'radial-gradient(circle at 35% 35%, #b2c595 0%, #869969 45%, #5d6b49 100%)',
+          boxShadow: `
+            inset -2px -2px 6px rgba(0,0,0,0.3),
+            inset 2px 2px 6px rgba(255,255,255,0.4),
+            0 4px 12px rgba(0,0,0,0.15)
+          `,
+        }}
+      />
+      {/* Trailing Soft Ring */}
+      <div 
+        className={`fixed top-0 left-0 w-10 h-10 border border-seedGreen/20 rounded-full pointer-events-none z-[9998] ${isHidden ? 'opacity-0' : 'opacity-100'}`}
+        style={{ 
+          transform: `translate3d(${trailingPos.x - 20}px, ${trailingPos.y - 20}px, 0) scale(${isPointer ? 1.4 : 1})`,
+          transition: 'transform 0.1s ease-out'
+        }}
+      />
+    </>
+  );
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +99,7 @@ const Navbar = () => {
           <a href="#contact" className="hover:text-morningSky transition-colors">Contact</a>
         </div>
 
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden">
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden" aria-label="Toggle menu">
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
@@ -66,7 +146,7 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
       <div className="absolute inset-0 bg-brandBlack/80 backdrop-blur-sm" onClick={onClose}></div>
       <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-3xl shadow-2xl overflow-hidden animate-fade-in flex flex-col md:flex-row">
-        <button onClick={onClose} className="absolute top-6 right-6 z-[110] p-2 bg-brandBlack text-white rounded-full hover:bg-morningSky transition-colors">
+        <button onClick={onClose} className="absolute top-6 right-6 z-[110] p-2 bg-brandBlack text-white rounded-full hover:bg-morningSky transition-colors" aria-label="Close modal">
           <X size={24} />
         </button>
         
@@ -78,7 +158,9 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
                 key={i}
                 src={img} 
                 alt={`${caseStudy.title} - ${i + 1}`} 
-                className="w-full h-full object-cover flex-shrink-0" 
+                className="w-full h-full object-cover flex-shrink-0"
+                decoding="async"
+                loading={i === currentImgIndex ? "eager" : "lazy"}
               />
             ))}
           </div>
@@ -88,12 +170,14 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
               <button 
                 onClick={prevImg}
                 className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all opacity-0 group-hover:opacity-100 z-10"
+                aria-label="Previous image"
               >
                 <ChevronLeft size={24} />
               </button>
               <button 
                 onClick={nextImg}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all opacity-0 group-hover:opacity-100 z-10"
+                aria-label="Next image"
               >
                 <ChevronRight size={24} />
               </button>
@@ -104,6 +188,7 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
                     key={i}
                     onClick={() => setCurrentImgIndex(i)}
                     className={`w-2 h-2 rounded-full transition-all ${i === currentImgIndex ? 'bg-white w-6' : 'bg-white/40'}`}
+                    aria-label={`Go to slide ${i + 1}`}
                   />
                 ))}
               </div>
@@ -171,6 +256,7 @@ const App: React.FC = () => {
 
   return (
     <div className="antialiased text-brandBlack">
+      <CustomCursor />
       <Navbar />
 
       {selectedCase && <CaseStudyModal caseStudy={selectedCase.case} index={selectedCase.index} onClose={() => setSelectedCase(null)} />}
@@ -219,7 +305,7 @@ const App: React.FC = () => {
 
       {/* About Section */}
       <section id="about" className="py-32 px-6">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_320px] lg:grid-cols-[1fr_380px] gap-12 md:gap-24 items-start">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] gap-12 md:gap-24 items-start">
           <div className="order-2 md:order-1">
             <SectionHeader 
               title="The Director." 
@@ -232,14 +318,14 @@ const App: React.FC = () => {
             />
             <div className="space-y-12">
               <div>
-                <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">Profile</h4>
+                <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">PROFILE</h4>
                 <h3 className="text-3xl font-bold mb-2">이지영 LEE JIYOUNG</h3>
                 <p className="text-gray-500 italic">Magazine Editor & Content Director</p>
               </div>
               
               <div className="space-y-12">
                 <div>
-                  <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">주요 경력 (Career)</h4>
+                  <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">주요 경력 (CAREER)</h4>
                   <ul className="space-y-3">
                     <li className="flex justify-between border-b border-gray-100 pb-2">
                       <span>삼성물산 패션부문</span>
@@ -257,7 +343,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">주요 프로젝트 (Projects)</h4>
+                  <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">주요 프로젝트 (PROJECTS)</h4>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-1">
                     <li className="flex items-center border-b border-gray-100 py-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
@@ -295,9 +381,12 @@ const App: React.FC = () => {
                 src="https://raw.githubusercontent.com/beginus-director/website/ebd9366d327e97bb73b7e8a87e15152c39cc08a8/my-profile-f.png" 
                 alt="Director Lee Jiyoung" 
                 className="w-full h-full object-cover"
+                decoding="async"
+                // @ts-ignore
+                fetchpriority="high"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
-                  target.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1288&auto=format&fit=crop";
+                  target.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop";
                 }}
               />
             </div>
@@ -345,7 +434,13 @@ const App: React.FC = () => {
                     </div>
                   </div>
                   <div className="order-1 md:order-2 overflow-hidden rounded-2xl aspect-[3/2] bg-morningSky shadow-2xl transition-transform group-hover:scale-[1.01]">
-                    <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                    <img 
+                      src={project.image} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover" 
+                      loading="lazy"
+                      decoding="async"
+                    />
                   </div>
                 </div>
 
@@ -362,6 +457,8 @@ const App: React.FC = () => {
                           src={caseStudy.thumbnail} 
                           alt={caseStudy.title} 
                           className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" 
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                       <div className="p-8 md:p-10 flex justify-between items-start">
@@ -405,6 +502,7 @@ const App: React.FC = () => {
                   <button 
                     className="w-full flex items-center justify-between py-6 text-left group"
                     onClick={() => setActiveProcess(activeProcess === index ? null : index)}
+                    aria-expanded={activeProcess === index}
                   >
                     <div className="flex items-center space-x-6">
                       <span className="text-sm font-bold text-morningSky">{item.step}</span>
@@ -453,10 +551,13 @@ const App: React.FC = () => {
       {/* Contact Section */}
       <section id="contact" className="py-32 px-6 bg-beginningIvory">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="heading-lg mb-12">Let's Create<br />Together.</h2>
+          <div className="mb-12">
+            <h2 className="heading-lg mb-4">Story Begins with U</h2>
+            <h3 className="text-4xl logo-font lowercase text-morningSky">Beginus</h3>
+          </div>
           <div className="flex flex-col items-center space-y-8">
-            <p className="text-2xl max-w-2xl text-gray-600">
-              브랜드의 새로운 시작, 스튜디오 비기너스와 함께 만들어보세요.
+            <p className="text-2xl max-w-2xl text-gray-600 font-medium">
+              새로운 브랜드 스토리, 스튜디오 비기너스와 함께 시작해보세요.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <a href="mailto:hello@studiobeginus.com" className="flex items-center bg-brandBlack text-white px-8 py-4 rounded-full font-bold hover:bg-morningSky transition-colors">
@@ -467,7 +568,7 @@ const App: React.FC = () => {
               </a>
             </div>
             <div className="flex space-x-6 pt-12">
-              <a href="https://instagram.com/studio.beginus" target="_blank" className="p-4 bg-white rounded-full shadow-lg hover:text-morningSky transition-all hover:-translate-y-1">
+              <a href="https://instagram.com/studio.beginus" target="_blank" className="p-4 bg-white rounded-full shadow-lg hover:text-morningSky transition-all hover:-translate-y-1" aria-label="Instagram">
                 <Instagram size={32} />
               </a>
             </div>
@@ -476,20 +577,20 @@ const App: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 px-6 border-t border-gray-100">
+      <footer className="py-20 px-6 bg-brandBlack text-morningSky border-t border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
             <div>
-              <h2 className="logo-font text-4xl lowercase mb-6">beginus</h2>
-              <div className="text-sm text-gray-400 space-y-2 uppercase tracking-widest font-bold">
+              <h2 className="logo-font text-4xl lowercase mb-6 text-morningSky">beginus</h2>
+              <div className="text-sm text-morningSky/80 space-y-2 uppercase tracking-widest font-bold">
                 <p>Studio Beginus 스튜디오 비기너스</p>
                 <p>Director Jiyoung Lee</p>
                 <p>Business: 260-09-03112</p>
               </div>
             </div>
-            <div className="text-sm text-gray-400 text-right">
-              <p className="mb-4">Designed for the beginnings.</p>
-              <p>&copy; 2026 Studio Beginus. All rights reserved.</p>
+            <div className="text-sm text-morningSky/80 text-right">
+              <p className="mb-4 font-bold text-morningSky">Beginus for Beginners — Begin again. Fail better. Grow together.</p>
+              <p className="text-xs">&copy; 2026 Studio Beginus. All rights reserved.</p>
             </div>
           </div>
         </div>

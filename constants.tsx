@@ -41,13 +41,13 @@ export const PROJECTS: Project[] = [
         id: 'case-02',
         title: 'BRAND COMMISSION — 브랜드를 위한 맞춤 작품',
         subtitle: 'PEER COFFEE',
-        thumbnail: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop',
+        thumbnail: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=75&w=800&auto=format&fit=crop',
         images: [
-          'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1524350303359-8683aa55d116?q=80&w=1200&auto=format&fit=crop'
+          'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1524350303359-8683aa55d116?q=75&w=1200&auto=format&fit=crop'
         ],
         partner: 'PEER COFFEE 피어커피 | 종각점 (리뉴얼 오픈)',
         artist: '모유진 작가',
@@ -64,13 +64,13 @@ export const PROJECTS: Project[] = [
         id: 'case-03',
         title: 'PERSONAL COLLECTION — 취향과 철학이 담긴 콜렉션',
         subtitle: 'Magazine C',
-        thumbnail: 'https://images.unsplash.com/photo-1513519247388-443b70b39ed4?q=80&w=1200&auto=format&fit=crop',
+        thumbnail: 'https://images.unsplash.com/photo-1513519247388-443b70b39ed4?q=75&w=800&auto=format&fit=crop',
         images: [
-          'https://images.unsplash.com/photo-1513519247388-443b70b39ed4?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1581850518616-bcb8186c443e?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?q=80&w=1200&auto=format&fit=crop'
+          'https://images.unsplash.com/photo-1513519247388-443b70b39ed4?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1581850518616-bcb8186c443e?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?q=75&w=1200&auto=format&fit=crop'
         ],
         partner: '매거진 C 디렉터 | 전은경',
         artist: '정이지 작가',
@@ -86,13 +86,13 @@ export const PROJECTS: Project[] = [
         id: 'case-04',
         title: 'FROM PERSONAL TO PUBLIC — 개인 의뢰에서 오프라인 행사로',
         subtitle: 'Oh!Boy Magazine',
-        thumbnail: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&auto=format&fit=crop',
+        thumbnail: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=75&w=800&auto=format&fit=crop',
         images: [
-          'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1517331156634-57147ed5679a?q=80&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=1200&auto=format&fit=crop'
+          'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1542435503-956c469947f6?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1517331156634-57147ed5679a?q=75&w=1200&auto=format&fit=crop',
+          'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=75&w=1200&auto=format&fit=crop'
         ],
         partner: 'Oh!Boy 매거진 편집장 | 김현성 (패션 포토그래퍼)',
         artist: '정이지 작가 (개인 의뢰) | 장승근, 황예랑 작가 (행사 전시)',
