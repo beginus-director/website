@@ -449,14 +449,14 @@ const App: React.FC = () => {
                   {project.caseStudies?.map((caseStudy, cIdx) => (
                     <div 
                       key={caseStudy.id} 
-                      className="group/card bg-beginningIvory rounded-3xl overflow-hidden hover:ring-4 hover:ring-morningSky/30 transition-all cursor-pointer"
+                      className="group/card bg-beginningIvory rounded-3xl overflow-hidden ring-1 ring-white/10 hover:ring-2 hover:ring-morningSky hover:scale-[1.02] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(134,208,252,0.25)] transition-all duration-500 cursor-pointer"
                       onClick={() => setSelectedCase({case: caseStudy, index: cIdx})}
                     >
                       <div className="aspect-[16/9] overflow-hidden">
                         <img 
                           src={caseStudy.thumbnail} 
                           alt={caseStudy.title} 
-                          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500" 
+                          className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700 ease-out" 
                           loading="lazy"
                           decoding="async"
                         />
@@ -470,7 +470,7 @@ const App: React.FC = () => {
                             {caseStudy.subtitle}
                           </h3>
                         </div>
-                        <div className="bg-brandBlack p-3 rounded-full text-white group-hover/card:bg-morningSky transition-colors ml-4 flex-shrink-0">
+                        <div className="bg-brandBlack p-3 rounded-full text-white group-hover/card:bg-morningSky group-hover/card:scale-110 transition-all duration-300 ml-4 flex-shrink-0">
                           <ArrowUpRight size={20} />
                         </div>
                       </div>
