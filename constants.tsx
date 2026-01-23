@@ -9,6 +9,7 @@ export const PROJECTS: Project[] = [
     client: 'YOUROWN 유로운',
     role: 'Content Director & Editor',
     scope: ['Brand Identity', 'Content Strategy', 'Visual Design', 'Social Media Management'],
+    link: 'https://yourown.kr/',
     description: '미술 작품 의뢰라는 새로운 영역을 대중에게 소개하기 위해\nStory / Artist Interview / Art Life 3가지 콘텐츠 시리즈로\n브랜드 스토리를 구축하고 54+ 브랜드 콘텐츠를 제작했습니다.',
     challenge: '미술 작품 의뢰라는 새로운 영역을 대중에게 소개',
     approach: 'Story / Artist Interview / Art Life 3가지 시리즈로 브랜드 스토리 구축',
@@ -41,13 +42,13 @@ export const PROJECTS: Project[] = [
         id: 'case-02',
         title: 'BRAND COMMISSION — 브랜드를 위한 맞춤 작품',
         subtitle: 'PEER COFFEE',
-        thumbnail: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=75&w=800&auto=format&fit=crop',
+        thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
         images: [
-          'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1442512595331-e89e73853f31?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1453614512568-c4024d13c247?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1524350303359-8683aa55d116?q=75&w=1200&auto=format&fit=crop'
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_2.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_3.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_4.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_5.jpg'
         ],
         partner: 'PEER COFFEE 피어커피 | 종각점 (리뉴얼 오픈)',
         artist: '모유진 작가',
@@ -64,13 +65,13 @@ export const PROJECTS: Project[] = [
         id: 'case-03',
         title: 'PERSONAL COLLECTION — 취향과 철학이 담긴 콜렉션',
         subtitle: 'Magazine C',
-        thumbnail: 'https://images.unsplash.com/photo-1513519247388-443b70b39ed4?q=75&w=800&auto=format&fit=crop',
+        thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_1.png',
         images: [
-          'https://images.unsplash.com/photo-1513519247388-443b70b39ed4?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1581850518616-bcb8186c443e?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1505691723518-36a5ac3be353?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?q=75&w=1200&auto=format&fit=crop'
+          'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_1.png',
+          'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_2.png',
+          'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_3.png',
+          'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_4.png',
+          'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_5.png'
         ],
         partner: '매거진 C 디렉터 | 전은경',
         artist: '정이지 작가',
@@ -86,13 +87,13 @@ export const PROJECTS: Project[] = [
         id: 'case-04',
         title: 'FROM PERSONAL TO PUBLIC — 개인 의뢰에서 오프라인 행사로',
         subtitle: 'Oh!Boy Magazine',
-        thumbnail: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=75&w=800&auto=format&fit=crop',
+        thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_1.png',
         images: [
-          'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1542435503-956c469947f6?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1517331156634-57147ed5679a?q=75&w=1200&auto=format&fit=crop',
-          'https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=75&w=1200&auto=format&fit=crop'
+          'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_1.png',
+          'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_2.png',
+          'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_3.png',
+          'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_4.jpeg',
+          'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_5.jpeg'
         ],
         partner: 'Oh!Boy 매거진 편집장 | 김현성 (패션 포토그래퍼)',
         artist: '정이지 작가 (개인 의뢰) | 장승근, 황예랑 작가 (행사 전시)',
@@ -123,7 +124,7 @@ export const SERVICES: ServiceItem[] = [
   },
   {
     title: 'Creative Collaboration',
-    description: '검증된 파트너와 함께하는 고감도 비주얼 결과물',
+    description: '브랜드의 본질에 접근하여 결과물을 도출하는 5단계 프로세스입니다.',
     details: [
       '그래픽 디자인 (BI, 패키지, 프로모션)',
       '영상 제작 (숏폼, 브랜드 필름)',

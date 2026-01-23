@@ -7,13 +7,10 @@ const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
-  const cursorRef = useRef<{ x: number, y: number }>({ x: 0, y: 0 });
-  const [trailingPos, setTrailingPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
-      cursorRef.current = { x: e.clientX, y: e.clientY };
       setIsHidden(false);
 
       const target = e.target as HTMLElement;
@@ -31,75 +28,58 @@ const CustomCursor = () => {
     document.addEventListener('mouseleave', onMouseLeave);
     document.addEventListener('mouseenter', onMouseEnter);
 
-    // Smooth trailing effect
-    let frameId: number;
-    const followMouse = () => {
-      setTrailingPos(prev => ({
-        x: prev.x + (cursorRef.current.x - prev.x) * 0.15,
-        y: prev.y + (cursorRef.current.y - prev.y) * 0.15,
-      }));
-      frameId = requestAnimationFrame(followMouse);
-    };
-    frameId = requestAnimationFrame(followMouse);
-
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseleave', onMouseLeave);
       document.removeEventListener('mouseenter', onMouseEnter);
-      cancelAnimationFrame(frameId);
     };
   }, []);
 
   if (typeof window !== 'undefined' && 'ontouchstart' in window) return null;
 
-  // Base size of the 3D sphere
-  const sphereSize = 24;
+  const cursorSize = 20;
 
   return (
-    <>
-      {/* 3D Sphere Cursor */}
-      <div 
-        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] transition-transform duration-200 ease-out ${isHidden ? 'opacity-0' : 'opacity-100'}`}
-        style={{ 
-          width: `${sphereSize}px`,
-          height: `${sphereSize}px`,
-          transform: `translate3d(${position.x - sphereSize/2}px, ${position.y - sphereSize/2}px, 0) scale(${isPointer ? 1.8 : 1})`,
-          background: 'radial-gradient(circle at 35% 35%, #b2c595 0%, #869969 45%, #5d6b49 100%)',
-          boxShadow: `
-            inset -2px -2px 6px rgba(0,0,0,0.3),
-            inset 2px 2px 6px rgba(255,255,255,0.4),
-            0 4px 12px rgba(0,0,0,0.15)
-          `,
-        }}
-      />
-      {/* Trailing Soft Ring */}
-      <div 
-        className={`fixed top-0 left-0 w-10 h-10 border border-seedGreen/20 rounded-full pointer-events-none z-[9998] ${isHidden ? 'opacity-0' : 'opacity-100'}`}
-        style={{ 
-          transform: `translate3d(${trailingPos.x - 20}px, ${trailingPos.y - 20}px, 0) scale(${isPointer ? 1.4 : 1})`,
-          transition: 'transform 0.1s ease-out'
-        }}
-      />
-    </>
+    <div 
+      className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] transition-all duration-300 ease-out ${isHidden ? 'opacity-0' : 'opacity-100'}`}
+      style={{ 
+        width: `${cursorSize}px`,
+        height: `${cursorSize}px`,
+        transform: `translate3d(${position.x - cursorSize/2}px, ${position.y - cursorSize/2}px, 0) scale(${isPointer ? 1.2 : 1})`,
+        backgroundColor: isPointer ? '#c5e5ff' : '#869969',
+      }}
+    />
   );
 };
 
-const Navbar = () => {
+const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   
+  const handleLinkClick = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    onScroll(id);
+    setIsOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        <a href="#hero" className="logo-font text-2xl lowercase">beginus</a>
+        <a 
+          href="#" 
+          onClick={(e) => handleLinkClick(e, 'hero')}
+          className="logo-font text-2xl lowercase text-brandBlack"
+        >
+          beginus
+        </a>
         
-        <div className="hidden md:flex items-center space-x-12 text-sm font-medium uppercase tracking-widest">
-          <a href="#about" className="hover:text-morningSky transition-colors">About</a>
-          <a href="#work" className="hover:text-morningSky transition-colors">Work</a>
-          <a href="#service" className="hover:text-morningSky transition-colors">Service</a>
-          <a href="#contact" className="hover:text-morningSky transition-colors">Contact</a>
+        <div className="hidden md:flex items-center space-x-12 text-sm font-medium uppercase tracking-widest text-brandBlack">
+          <a href="#" onClick={(e) => handleLinkClick(e, 'about')} className="hover:text-morningSky transition-colors">About</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'work')} className="hover:text-morningSky transition-colors">Work</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'service')} className="hover:text-morningSky transition-colors">Service</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-morningSky transition-colors">Contact</a>
         </div>
 
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden" aria-label="Toggle menu">
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-brandBlack" aria-label="Toggle menu">
           {isOpen ? <X /> : <Menu />}
         </button>
       </div>
@@ -107,10 +87,10 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-white fixed inset-0 top-20 z-40 p-8 flex flex-col space-y-8 text-3xl font-bold">
-          <a href="#about" onClick={() => setIsOpen(false)}>About</a>
-          <a href="#work" onClick={() => setIsOpen(false)}>Work</a>
-          <a href="#service" onClick={() => setIsOpen(false)}>Service</a>
-          <a href="#contact" onClick={() => setIsOpen(false)}>Contact</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'about')}>About</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'work')}>Work</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'service')}>Service</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'contact')}>Contact</a>
         </div>
       )}
     </nav>
@@ -134,25 +114,34 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
 
   const caseId = (index + 1).toString().padStart(2, '0');
 
-  const nextImg = () => {
+  const nextImg = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setCurrentImgIndex((prev) => (prev + 1) % caseStudy.images.length);
   };
 
-  const prevImg = () => {
+  const prevImg = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setCurrentImgIndex((prev) => (prev - 1 + caseStudy.images.length) % caseStudy.images.length);
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-      <div className="absolute inset-0 bg-brandBlack/80 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-3xl shadow-2xl overflow-hidden animate-fade-in flex flex-col md:flex-row">
-        <button onClick={onClose} className="absolute top-6 right-6 z-[110] p-2 bg-brandBlack text-white rounded-full hover:bg-morningSky transition-colors" aria-label="Close modal">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+      <div className="absolute inset-0 bg-brandBlack/90 backdrop-blur-md" onClick={onClose}></div>
+      
+      <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-[2rem] shadow-2xl overflow-hidden animate-fade-in flex flex-col lg:flex-row">
+        
+        {/* Floating Close Button */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-5 right-5 lg:top-8 lg:right-8 z-[120] p-3 bg-brandBlack/10 hover:bg-brandBlack text-brandBlack hover:text-white rounded-full backdrop-blur-sm transition-all duration-300"
+          aria-label="Close modal"
+        >
           <X size={24} />
         </button>
-        
-        {/* Carousel Section */}
-        <div className="w-full md:w-3/5 relative group bg-black flex items-center justify-center aspect-square md:aspect-auto overflow-hidden">
-          <div className="absolute inset-0 flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentImgIndex * 100}%)` }}>
+
+        {/* Left: Carousel Section */}
+        <div className="w-full lg:w-[55%] relative group bg-black aspect-[4/5] overflow-hidden">
+          <div className="absolute inset-0 flex transition-transform duration-700 cubic-bezier(0.19, 1, 0.22, 1)" style={{ transform: `translateX(-${currentImgIndex * 100}%)` }}>
             {caseStudy.images.map((img, i) => (
               <img 
                 key={i}
@@ -160,7 +149,6 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
                 alt={`${caseStudy.title} - ${i + 1}`} 
                 className="w-full h-full object-cover flex-shrink-0"
                 decoding="async"
-                loading={i === currentImgIndex ? "eager" : "lazy"}
               />
             ))}
           </div>
@@ -169,26 +157,24 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
             <>
               <button 
                 onClick={prevImg}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all opacity-0 group-hover:opacity-100 z-10"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-brandBlack transition-all opacity-0 group-hover:opacity-100 z-10"
                 aria-label="Previous image"
               >
                 <ChevronLeft size={24} />
               </button>
               <button 
                 onClick={nextImg}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/20 backdrop-blur-md text-white hover:bg-white/40 transition-all opacity-0 group-hover:opacity-100 z-10"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-brandBlack transition-all opacity-0 group-hover:opacity-100 z-10"
                 aria-label="Next image"
               >
                 <ChevronRight size={24} />
               </button>
-              
               <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
                 {caseStudy.images.map((_, i) => (
                   <button 
                     key={i}
                     onClick={() => setCurrentImgIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-all ${i === currentImgIndex ? 'bg-white w-6' : 'bg-white/40'}`}
-                    aria-label={`Go to slide ${i + 1}`}
+                    className={`h-1 rounded-full transition-all duration-500 ${i === currentImgIndex ? 'bg-white w-8' : 'bg-white/30 w-3'}`}
                   />
                 ))}
               </div>
@@ -196,53 +182,53 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
           )}
         </div>
         
-        {/* Content Section */}
-        <div className="w-full md:w-2/5 p-8 md:p-12 overflow-y-auto bg-beginningIvory">
-          <div className="mb-10">
-            <h4 className="text-morningSky font-extrabold uppercase tracking-widest text-sm mb-2">CASE {caseId} | {caseStudy.partner.split('|')[0].trim()}</h4>
-            <h3 className="text-3xl font-extrabold text-brandBlack leading-tight">{caseStudy.title}</h3>
-          </div>
+        {/* Right: Refined Compact Content Section */}
+        <div className="w-full lg:w-[45%] bg-beginningIvory flex flex-col justify-center p-10 lg:p-14 overflow-hidden">
+          <div className="max-w-md mx-auto w-full space-y-5 lg:space-y-6">
+            <div className="space-y-1">
+              <span className="text-morningSky font-black uppercase tracking-[0.2em] text-[9px] block">
+                CASE {caseId} / {caseStudy.partner.split('|')[0].trim()}
+              </span>
+              <h3 className="text-2xl lg:text-3xl font-black text-brandBlack leading-tight tracking-tight">
+                {caseStudy.title}
+              </h3>
+              <p className="text-sm lg:text-base font-bold text-gray-400 italic leading-none">{caseStudy.subtitle}</p>
+            </div>
 
-          <div className="space-y-10">
-            <div className="grid grid-cols-1 gap-6">
-              <div>
-                <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-2">Featured Partner</h5>
-                <p className="text-brandBlack font-bold">{caseStudy.partner}</p>
+            <div className="grid grid-cols-1 gap-4 lg:gap-5">
+              <div className="space-y-1">
+                <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h5>
+                <p className="text-sm lg:text-base text-brandBlack font-extrabold leading-tight">{caseStudy.partner}</p>
               </div>
+              
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-2">Artist</h5>
-                  <p className="text-brandBlack font-bold">{caseStudy.artist}</p>
+                <div className="space-y-1">
+                  <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h5>
+                  <p className="text-sm lg:text-base text-brandBlack font-extrabold leading-tight">{caseStudy.artist}</p>
                 </div>
-                <div>
-                  <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-2">Collaboration Type</h5>
-                  <p className="text-brandBlack font-bold">{caseStudy.type}</p>
+                <div className="space-y-1">
+                  <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h5>
+                  <p className="text-sm lg:text-base text-brandBlack font-extrabold leading-tight">{caseStudy.type}</p>
                 </div>
               </div>
             </div>
 
-            <div>
-              <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-3">Project Overview</h5>
-              <p className="text-gray-600 leading-relaxed">{caseStudy.overview}</p>
+            <div className="space-y-1">
+              <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h5>
+              <p className="text-gray-600 text-[13px] lg:text-[15px] leading-snug font-medium">{caseStudy.overview}</p>
             </div>
 
-            <div>
-              <h5 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-4">Key Achievement</h5>
-              <ul className="space-y-3">
+            <div className="space-y-2">
+              <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h5>
+              <ul className="space-y-1.5">
                 {caseStudy.achievements.map((ach, idx) => (
                   <li key={idx} className="flex items-start">
-                    <CheckCircle2 className="text-morningSky mr-3 flex-shrink-0 mt-0.5" size={18} />
-                    <span className="text-brandBlack font-medium">{ach}</span>
+                    <CheckCircle2 className="text-morningSky mr-2 mt-0.5 flex-shrink-0" size={12} />
+                    <span className="text-brandBlack font-bold leading-tight text-[12px] lg:text-[14px]">{ach}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
-          
-          <div className="mt-12 pt-8 border-t border-gray-200">
-             <button onClick={onClose} className="w-full py-4 bg-brandBlack text-white rounded-full font-bold hover:bg-morningSky transition-colors">
-               Close Details
-             </button>
           </div>
         </div>
       </div>
@@ -254,10 +240,17 @@ const App: React.FC = () => {
   const [activeProcess, setActiveProcess] = useState<number | null>(0);
   const [selectedCase, setSelectedCase] = useState<{case: CaseStudy, index: number} | null>(null);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="antialiased text-brandBlack">
+    <div className="antialiased text-brandBlack bg-white">
       <CustomCursor />
-      <Navbar />
+      <Navbar onScroll={scrollToSection} />
 
       {selectedCase && <CaseStudyModal caseStudy={selectedCase.case} index={selectedCase.index} onClose={() => setSelectedCase(null)} />}
 
@@ -274,14 +267,18 @@ const App: React.FC = () => {
               매거진 에디터 출신 콘텐츠 디렉터가 만드는 브랜드 스토리. <br className="hidden md:block" />
               감도 높은 브랜딩과 데이터 기반 성과를 연결합니다.
             </p>
-            <a href="#work" className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group flex-shrink-0">
-              See the work <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
+            <a 
+              href="javascript:void(0)" 
+              onClick={() => scrollToSection('work')}
+              className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group flex-shrink-0"
+            >
+              View Case Study <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Intro Bar (Marquee) */}
+      {/* Intro Bar */}
       <div className="bg-brandBlack text-white py-12 px-6 overflow-hidden">
         <div className="flex whitespace-nowrap space-x-12 animate-marquee items-center text-sm font-bold uppercase tracking-widest">
           <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
@@ -350,7 +347,6 @@ const App: React.FC = () => {
                 <div>
                   <h4 className="text-xs font-bold uppercase tracking-widest mb-10 text-morningSky">주요 경력</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-                    {/* Category: Digital Marketing */}
                     <div>
                       <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">디지털 마케팅</h5>
                       <ul className="space-y-2 text-sm text-gray-600">
@@ -358,16 +354,12 @@ const App: React.FC = () => {
                         <li>삼성물산 패션부문 프로모션팀</li>
                       </ul>
                     </div>
-
-                    {/* Category: UX Writing */}
                     <div>
                       <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">UX Writing</h5>
                       <ul className="space-y-2 text-sm text-gray-600">
                         <li>현대카드 Product Design팀</li>
                       </ul>
                     </div>
-
-                    {/* Category: Branding & Content */}
                     <div>
                       <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">브랜딩 & 콘텐츠</h5>
                       <ul className="space-y-2 text-sm text-gray-600">
@@ -375,8 +367,6 @@ const App: React.FC = () => {
                         <li>두산매거진 ALLURE, VOGUE, W</li>
                       </ul>
                     </div>
-
-                    {/* Category: E-commerce */}
                     <div>
                       <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">이커머스</h5>
                       <ul className="space-y-2 text-sm text-gray-600">
@@ -388,7 +378,6 @@ const App: React.FC = () => {
               </div>
             </div>
           </div>
-          
           <div className="order-1 md:order-2">
             <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 shadow-sm mt-4">
               <img 
@@ -396,8 +385,6 @@ const App: React.FC = () => {
                 alt="Director Lee Jiyoung" 
                 className="w-full h-full object-cover"
                 decoding="async"
-                // @ts-ignore
-                fetchpriority="high"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop";
@@ -425,9 +412,9 @@ const App: React.FC = () => {
           <div className="space-y-32">
             {PROJECTS.map((project) => (
               <div key={project.id} className="group">
-                <div className="grid md:grid-cols-2 gap-12 items-center mb-12">
+                <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
                   <div className="order-2 md:order-1 text-morningSky">
-                    <span className="inline-block px-4 py-1 rounded-full border border-morningSky text-xs font-bold uppercase mb-6">Featured Project</span>
+                    <span className="inline-block px-4 py-1 rounded-full border border-morningSky text-[10px] font-black uppercase tracking-[0.2em] mb-6">CASE STUDY</span>
                     <h3 className="text-5xl font-extrabold mb-6 tracking-tight text-white">{project.title}</h3>
                     <p className="text-xl text-morningSky/90 mb-8 leading-relaxed whitespace-pre-line">
                       {project.description}
@@ -447,45 +434,63 @@ const App: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="order-1 md:order-2 overflow-hidden rounded-2xl aspect-[3/2] bg-morningSky shadow-2xl transition-transform group-hover:scale-[1.01]">
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className="w-full h-full object-cover" 
-                      loading="lazy"
-                      decoding="async"
-                    />
+                  <div className="order-1 md:order-2 overflow-hidden rounded-[2.5rem] aspect-[3/2] bg-morningSky shadow-2xl transition-all duration-500 hover:scale-[1.01]">
+                    {project.link ? (
+                      <a 
+                        href={project.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block w-full h-full hover:scale-[1.02] hover:brightness-[0.6] transition-all duration-300 ease-in-out"
+                        title={`Visit ${project.title} website`}
+                      >
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover" 
+                          loading="lazy"
+                        />
+                      </a>
+                    ) : (
+                      <img 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="w-full h-full object-cover" 
+                        loading="lazy"
+                      />
+                    )}
                   </div>
                 </div>
 
-                {/* Case Study Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Case Study Grid: Strict 4:5 Aspect Ratio Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                   {project.caseStudies?.map((caseStudy, cIdx) => (
                     <div 
                       key={caseStudy.id} 
-                      className="group/card bg-beginningIvory rounded-3xl overflow-hidden ring-1 ring-white/10 hover:ring-2 hover:ring-morningSky hover:scale-[1.02] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(134,208,252,0.25)] transition-all duration-500 cursor-pointer"
+                      className="group/card cursor-pointer aspect-[4/5] flex flex-col rounded-[2.5rem] overflow-hidden bg-morningSky shadow-lg ring-1 ring-white/10 hover:ring-morningSky transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_80px_rgba(134,208,252,0.15)]"
                       onClick={() => setSelectedCase({case: caseStudy, index: cIdx})}
                     >
-                      <div className="aspect-[16/9] overflow-hidden">
+                      {/* Top 80%: Image Area */}
+                      <div className="flex-[4] overflow-hidden">
                         <img 
                           src={caseStudy.thumbnail} 
                           alt={caseStudy.title} 
-                          className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700 ease-out" 
+                          className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000 ease-out" 
                           loading="lazy"
-                          decoding="async"
                         />
                       </div>
-                      <div className="p-8 md:p-10 flex justify-between items-start">
-                        <div>
-                          <h4 className="text-sm font-bold text-morningSky uppercase tracking-widest mb-2 leading-tight">
+                      
+                      {/* Bottom 20%: Info Bar Area (Beginning Ivory) */}
+                      <div className="flex-1 bg-beginningIvory p-6 md:p-8 flex justify-between items-center">
+                        <div className="max-w-[80%]">
+                          <h4 className="text-[10px] font-black text-morningSky uppercase tracking-[0.3em] mb-1.5 leading-none">
                             {caseStudy.title}
                           </h4>
-                          <h3 className="text-2xl font-extrabold text-brandBlack leading-tight">
+                          <h3 className="text-xl md:text-2xl font-black text-brandBlack leading-tight tracking-tight line-clamp-1">
                             {caseStudy.subtitle}
                           </h3>
                         </div>
-                        <div className="bg-brandBlack p-3 rounded-full text-white group-hover/card:bg-morningSky group-hover/card:scale-110 transition-all duration-300 ml-4 flex-shrink-0">
-                          <ArrowUpRight size={20} />
+                        <div className="bg-brandBlack p-3 rounded-full text-white group-hover/card:bg-morningSky group-hover/card:scale-110 transition-all duration-500 flex-shrink-0">
+                          <ArrowUpRight size={18} />
                         </div>
                       </div>
                     </div>
@@ -493,12 +498,22 @@ const App: React.FC = () => {
                 </div>
               </div>
             ))}
+            
+            {/* Archive Button */}
+            <div className="flex justify-center pt-20">
+              <a 
+                href="archive.html" 
+                className="group flex items-center justify-center px-12 py-5 border border-morningSky text-morningSky font-bold rounded-full transition-all duration-300 hover:bg-morningSky hover:text-brandBlack"
+              >
+                Archive <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Method Section */}
-      <section className="py-32 bg-brandBlack text-white px-6 border-t border-white/5">
+      <section id="method" className="py-32 bg-brandBlack text-white px-6 border-t border-white/5">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-20">
             <div>
@@ -545,7 +560,7 @@ const App: React.FC = () => {
           />
           <div className="grid md:grid-cols-2 gap-12">
             {SERVICES.map((service, idx) => (
-              <div key={idx} className={`p-12 rounded-3xl ${idx === 0 ? 'bg-earlySky' : 'bg-beginningIvory'}`}>
+              <div key={idx} className={`p-12 rounded-[2.5rem] ${idx === 0 ? 'bg-earlySky' : 'bg-beginningIvory'}`}>
                 <h3 className="text-3xl font-extrabold mb-4">{service.title}</h3>
                 <p className="text-lg text-gray-600 mb-8">{service.description}</p>
                 <div className="space-y-4">
@@ -612,7 +627,7 @@ const App: React.FC = () => {
 
       {/* Sticky CTA (Mobile) */}
       <div className="md:hidden fixed bottom-6 left-6 right-6 z-50">
-        <a href="#contact" className="flex items-center justify-center w-full h-16 bg-brandBlack text-white rounded-full shadow-2xl font-bold">
+        <a href="javascript:void(0)" onClick={() => scrollToSection('contact')} className="flex items-center justify-center w-full h-16 bg-brandBlack text-white rounded-full shadow-2xl font-bold">
           Start a project <ArrowRight className="ml-2" />
         </a>
       </div>

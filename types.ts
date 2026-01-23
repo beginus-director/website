@@ -12,6 +12,7 @@ export interface Project {
   result?: string;
   description?: string;
   image: string;
+  link?: string;
   caseStudies?: CaseStudy[];
 }
 
