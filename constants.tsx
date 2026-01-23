@@ -1,3 +1,4 @@
+
 import { Project, ServiceItem } from './types';
 
 export const PROJECTS: Project[] = [
@@ -14,7 +15,7 @@ export const PROJECTS: Project[] = [
     challenge: '미술 작품 의뢰라는 새로운 영역을 대중에게 소개',
     approach: 'Story / Artist Interview / Art Life 3가지 시리즈로 브랜드 스토리 구축',
     result: '54개 이상의 브랜드 콘텐츠 제작',
-    image: 'https://raw.githubusercontent.com/beginus-director/website/08a385248eb598e03c5bb3a78390ec31378a145d/work_1.png',
+    image: 'https://raw.githubusercontent.com/beginus-director/website/cc3f4f002e10e9e8440088e8a49594edfa108709/yourown_img.png',
     caseStudies: [
       {
         id: 'case-01',
@@ -134,9 +135,7 @@ export const SERVICES: ServiceItem[] = [
 ];
 
 export const WORK_PROCESS = [
-  { step: '01', title: 'Discovery', description: '브랜드 분석 및 목표 설정' },
-  { step: '02', title: 'Strategy', description: '브랜딩 방향성 및 콘텐츠 전략 수립' },
-  { step: '03', title: 'Creation', description: '콘텐츠 제작 & 비주얼 작업' },
-  { step: '04', title: 'Launch', description: '브랜드 런칭 및 콘텐츠 배포' },
-  { step: '05', title: 'Growth', description: '지속적인 관리 및 최적화' }
+  { step: '01', title: 'Discover (발굴)', description: '브랜드가 지닌 고유한 이야기와 잠재력을 발견합니다.' },
+  { step: '02', title: 'Define (정의)', description: '에디토리얼 시선으로 결을 다듬고 명확한 전략을 수립합니다.' },
+  { step: '03', title: 'Deliver (전달)', description: '최적의 비주얼과 메시지로 브랜드 경험을 전달하고, 성과를 만들어갑니다.' }
 ];

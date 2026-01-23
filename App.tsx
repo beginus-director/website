@@ -76,6 +76,7 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
           <a href="#" onClick={(e) => handleLinkClick(e, 'about')} className="hover:text-morningSky transition-colors">About</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'work')} className="hover:text-morningSky transition-colors">Work</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'service')} className="hover:text-morningSky transition-colors">Service</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'method')} className="hover:text-morningSky transition-colors">Method</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-morningSky transition-colors">Contact</a>
         </div>
 
@@ -90,6 +91,7 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
           <a href="#" onClick={(e) => handleLinkClick(e, 'about')}>About</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'work')}>Work</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'service')}>Service</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'method')}>Method</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'contact')}>Contact</a>
         </div>
       )}
@@ -237,7 +239,6 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
 };
 
 const App: React.FC = () => {
-  const [activeProcess, setActiveProcess] = useState<number | null>(0);
   const [selectedCase, setSelectedCase] = useState<{case: CaseStudy, index: number} | null>(null);
 
   const scrollToSection = (id: string) => {
@@ -300,7 +301,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* Intro Section */}
+      {/* About Section */}
       <section id="about" className="py-24 md:py-40 bg-beginningIvory px-6 border-b border-gray-100">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-[22px] md:text-3xl lg:text-[42px] font-extrabold mb-12 md:mb-20 leading-[1.4] tracking-tight text-brandBlack">
@@ -395,7 +396,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Featured Work Section */}
+      {/* Work Section */}
       <section id="work" className="py-32 px-6 bg-brandBlack">
         <div className="max-w-7xl mx-auto">
           <SectionHeader 
@@ -434,19 +435,19 @@ const App: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="order-1 md:order-2 overflow-hidden rounded-[2.5rem] aspect-[3/2] bg-morningSky shadow-2xl transition-all duration-500 hover:scale-[1.01]">
+                  <div className={`order-1 md:order-2 overflow-hidden aspect-[3/2] transition-all duration-500 hover:scale-[1.01] ${project.id === 'yourown' ? 'bg-transparent shadow-none' : 'bg-morningSky shadow-2xl rounded-[2.5rem]'}`}>
                     {project.link ? (
                       <a 
                         href={project.link} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="block w-full h-full hover:scale-[1.02] hover:brightness-[0.6] transition-all duration-300 ease-in-out"
+                        className="block w-full h-full hover:scale-[1.02] hover:brightness-[1.1] transition-all duration-300 ease-in-out"
                         title={`Visit ${project.title} website`}
                       >
                         <img 
                           src={project.image} 
                           alt={project.title} 
-                          className="w-full h-full object-cover" 
+                          className={`w-full h-full ${project.id === 'yourown' ? 'object-contain p-0 md:p-0 scale-[1.15]' : 'object-cover'}`} 
                           loading="lazy"
                         />
                       </a>
@@ -454,14 +455,14 @@ const App: React.FC = () => {
                       <img 
                         src={project.image} 
                         alt={project.title} 
-                        className="w-full h-full object-cover" 
+                        className={`w-full h-full ${project.id === 'yourown' ? 'object-contain p-0 md:p-0 scale-[1.15]' : 'object-cover'}`} 
                         loading="lazy"
                       />
                     )}
                   </div>
                 </div>
 
-                {/* Case Study Grid: Strict 4:5 Aspect Ratio Cards */}
+                {/* Case Study Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
                   {project.caseStudies?.map((caseStudy, cIdx) => (
                     <div 
@@ -469,7 +470,6 @@ const App: React.FC = () => {
                       className="group/card cursor-pointer aspect-[4/5] flex flex-col rounded-[2.5rem] overflow-hidden bg-morningSky shadow-lg ring-1 ring-white/10 hover:ring-morningSky transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_80px_rgba(134,208,252,0.15)]"
                       onClick={() => setSelectedCase({case: caseStudy, index: cIdx})}
                     >
-                      {/* Top 80%: Image Area */}
                       <div className="flex-[4] overflow-hidden">
                         <img 
                           src={caseStudy.thumbnail} 
@@ -478,8 +478,6 @@ const App: React.FC = () => {
                           loading="lazy"
                         />
                       </div>
-                      
-                      {/* Bottom 20%: Info Bar Area (Beginning Ivory) */}
                       <div className="flex-1 bg-beginningIvory p-6 md:p-8 flex justify-between items-center">
                         <div className="max-w-[80%]">
                           <h4 className="text-[10px] font-black text-morningSky uppercase tracking-[0.3em] mb-1.5 leading-none">
@@ -498,61 +496,12 @@ const App: React.FC = () => {
                 </div>
               </div>
             ))}
-            
-            {/* Archive Button */}
-            <div className="flex justify-center pt-20">
-              <a 
-                href="archive.html" 
-                className="group flex items-center justify-center px-12 py-5 border border-morningSky text-morningSky font-bold rounded-full transition-all duration-300 hover:bg-morningSky hover:text-brandBlack"
-              >
-                Archive <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Method Section */}
-      <section id="method" className="py-32 bg-brandBlack text-white px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-20">
-            <div>
-              <h2 className="heading-lg mb-8">The Method.</h2>
-              <p className="text-xl text-gray-400 leading-relaxed max-w-md">
-                브랜드의 본질에 접근하여 결과물을 도출하는 5단계 프로세스입니다.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {WORK_PROCESS.map((item, index) => (
-                <div 
-                  key={index}
-                  className={`border-b border-gray-800 transition-all ${activeProcess === index ? 'pb-8' : 'pb-4'}`}
-                >
-                  <button 
-                    className="w-full flex items-center justify-between py-6 text-left group"
-                    onClick={() => setActiveProcess(activeProcess === index ? null : index)}
-                    aria-expanded={activeProcess === index}
-                  >
-                    <div className="flex items-center space-x-6">
-                      <span className="text-sm font-bold text-morningSky">{item.step}</span>
-                      <h3 className="text-2xl font-bold">{item.title}</h3>
-                    </div>
-                    {activeProcess === index ? <Minus className="text-morningSky" /> : <Plus className="group-hover:text-morningSky transition-colors" />}
-                  </button>
-                  {activeProcess === index && (
-                    <p className="text-gray-400 pl-11 text-lg leading-relaxed animate-fade-in">
-                      {item.description}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
       {/* Service Section */}
-      <section id="service" className="py-32 px-6">
+      <section id="service" className="py-32 md:py-48 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <SectionHeader 
             title="The Service." 
@@ -571,6 +520,32 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Method Section (Editorial Look) */}
+      <section id="method" className="py-32 md:py-48 bg-beginningIvory text-brandBlack border-t border-brandBlack px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-20">
+            <h2 className="heading-lg mb-6">The Method.</h2>
+            <p className="text-xl max-w-2xl text-gray-700 font-medium">
+              복잡한 절차 대신, 본질에 집중하는 3단계 워크플로우를 지향합니다.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 border-t border-brandBlack">
+            {WORK_PROCESS.map((item, index) => (
+              <div 
+                key={index} 
+                className={`py-12 md:py-16 px-0 md:px-10 border-b md:border-b-0 border-brandBlack ${index < 2 ? 'md:border-r border-brandBlack' : ''}`}
+              >
+                <span className="block text-[10px] font-black uppercase tracking-[0.3em] mb-8 text-morningSky">{item.step}</span>
+                <h3 className="text-3xl font-black mb-6 tracking-tight">{item.title}</h3>
+                <p className="text-lg text-gray-700 leading-relaxed font-medium">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
