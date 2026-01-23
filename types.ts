@@ -29,8 +29,13 @@ export interface CaseStudy {
   achievements: string[];
 }
 
+export interface ServiceDetail {
+  title: string;
+  description: string;
+}
+
 export interface ServiceItem {
   title: string;
   description: string;
-  details: string[];
+  details: ServiceDetail[];
 }

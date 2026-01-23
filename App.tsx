@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Instagram, Mail, Phone, Plus, Minus, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
-import { PROJECTS, SERVICES, WORK_PROCESS } from './constants';
+import { PROJECTS, SERVICES, WORK_PROCESS, SERVICE_TOOLS } from './constants';
 import { Project, CaseStudy } from './types';
 
 const CustomCursor = () => {
@@ -240,6 +240,8 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
 
 const App: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<{case: CaseStudy, index: number} | null>(null);
+  const [isContactAnimated, setIsContactAnimated] = useState(false);
+  const contactRef = useRef<HTMLElement>(null);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -247,6 +249,25 @@ const App: React.FC = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsContactAnimated(true);
+        } else {
+          setIsContactAnimated(false);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (contactRef.current) {
+      observer.observe(contactRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="antialiased text-brandBlack bg-white">
@@ -505,28 +526,66 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <SectionHeader 
             title="The Service." 
-            subtitle="에디토리얼의 감도와 마케팅 성과를 모두 잡는 서비스를 제공합니다."
+            subtitle="에디토리얼 감각과 마케팅 전략을 연결하는 서비스를 제공합니다."
           />
-          <div className="grid md:grid-cols-2 gap-12">
-            {SERVICES.map((service, idx) => (
-              <div key={idx} className={`p-12 rounded-[2.5rem] ${idx === 0 ? 'bg-earlySky' : 'bg-beginningIvory'}`}>
-                <h3 className="text-3xl font-extrabold mb-4">{service.title}</h3>
-                <p className="text-lg text-gray-600 mb-8">{service.description}</p>
-                <div className="space-y-4">
-                  {service.details.map((detail, dIdx) => (
-                    <div key={dIdx} className="flex items-center group">
-                      <div className="w-8 h-[1px] bg-brandBlack mr-4 group-hover:w-12 transition-all"></div>
-                      <span className="font-medium">{detail}</span>
+          <div className="grid md:grid-cols-2 gap-12 items-stretch">
+            {/* Left Card: Content Marketing & Branding */}
+            <div className="p-10 md:p-14 rounded-[2.5rem] bg-earlySky flex flex-col h-full">
+              <h3 className="text-3xl font-extrabold mb-4">{SERVICES[0].title}</h3>
+              <p className="text-lg text-gray-700 mb-10 font-medium">{SERVICES[0].description}</p>
+              <div className="space-y-8 flex-grow">
+                {SERVICES[0].details.map((item, dIdx) => (
+                  <div key={dIdx} className="space-y-1.5">
+                    <h4 className="font-bold text-[16px] md:text-[17px] text-brandBlack leading-tight">
+                      {item.title}
+                    </h4>
+                    <p className="text-[14px] md:text-[15px] text-gray-700 font-medium leading-relaxed pl-4 border-l border-brandBlack/10">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Card: Collaboration & Tools */}
+            <div className="p-10 md:p-14 rounded-[2.5rem] bg-beginningIvory flex flex-col h-full">
+              <div className="mb-14">
+                <h3 className="text-3xl font-extrabold mb-4">{SERVICES[1].title}</h3>
+                <p className="text-lg text-gray-700 mb-8 font-medium">{SERVICES[1].description}</p>
+                <div className="space-y-6">
+                  {SERVICES[1].details.map((item, dIdx) => (
+                    <div key={dIdx} className="flex flex-col space-y-1">
+                      <h4 className="font-bold text-[16px] text-brandBlack leading-tight">
+                        {item.title}
+                      </h4>
+                      <p className="text-[14px] text-gray-600 font-medium leading-relaxed pl-4 border-l border-brandBlack/10">
+                        {item.description}
+                      </p>
                     </div>
                   ))}
                 </div>
               </div>
-            ))}
+
+              {/* Tools Part */}
+              <div className="mt-auto pt-10 border-t border-brandBlack/5">
+                <h4 className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 text-morningSky">Tools</h4>
+                <div className="flex flex-wrap gap-3">
+                  {SERVICE_TOOLS.map((tool, tIdx) => (
+                    <span 
+                      key={tIdx} 
+                      className="px-5 py-2.5 bg-white text-brandBlack text-[13px] font-black rounded-full shadow-sm ring-1 ring-brandBlack/5"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Method Section (Editorial Look) */}
+      {/* Method Section */}
       <section id="method" className="py-32 md:py-48 bg-beginningIvory text-brandBlack border-t border-brandBlack px-6">
         <div className="max-w-7xl mx-auto">
           <div className="mb-20">
@@ -553,11 +612,16 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 px-6 bg-beginningIvory">
+      <section id="contact" ref={contactRef} className="py-32 px-6 bg-beginningIvory overflow-hidden">
         <div className="max-w-7xl mx-auto text-center">
           <div className="mb-12">
-            <h2 className="heading-lg mb-4">Story Begins with U</h2>
-            <h3 className="text-4xl logo-font lowercase text-morningSky">Beginus</h3>
+            <h2 className={`heading-lg mb-4 kinetic-title ${isContactAnimated ? 'is-animated' : ''}`}>
+              <span className="fade-text part-story">Story&nbsp;</span>
+              <span className="brand-part part-begin">Begin</span>
+              <span className="brand-part part-s">s</span>
+              <span className="fade-text part-with">&nbsp;with&nbsp;</span>
+              <span className="brand-part part-u">U</span>
+            </h2>
           </div>
           <div className="flex flex-col items-center space-y-8">
             <p className="text-2xl max-w-2xl text-gray-600 font-medium">

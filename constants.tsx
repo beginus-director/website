@@ -114,24 +114,31 @@ export const PROJECTS: Project[] = [
 export const SERVICES: ServiceItem[] = [
   {
     title: 'Content Marketing & Branding',
-    description: '브랜드의 본질을 발견하고 전달하는 에디토리얼 기반 브랜딩',
+    description: '콘텐츠 전략부터 실행까지 통합적으로 지원합니다.',
     details: [
-      '콘텐츠 전략 & 기획 (브랜드 정체성 기반)',
-      '소셜 미디어 운영 (IG, Blog, YouTube)',
-      '브랜드 스토리텔링 & 에디토리얼 캠페인',
-      '브랜드 전략 & 메시지 체계 (네이밍, 슬로건)',
-      'UX Writing (UI 텍스트, 마이크로카피)'
+      { title: '— 브랜드 전략 & 메시지 체계', description: '브랜드 아이덴티티, 네이밍 & 슬로건' },
+      { title: '— 콘텐츠 전략 & 기획', description: '브랜드 정체성 기반 콘텐츠 방향성 수립' },
+      { title: '— 브랜드 스토리텔링 & 에디토리얼 캠페인', description: '에디토리얼 콘텐츠, 인터뷰, 캠페인 스토리 기획' },
+      { title: '— 콘텐츠 제작 & 채널 운영', description: '카드뉴스, 릴스, 매거진·미디어 콘텐츠 제작 / Instagram, Threads, Blog, YouTube 등 채널별 운영' },
+      { title: '— 마케팅 캠페인 실행', description: '온/오프라인 캠페인, 프로모션, 전시/팝업, 데이터 기반 최적화' },
+      { title: '— UX Writing', description: '서비스/제품 UI 텍스트, 마이크로카피' }
     ]
   },
   {
     title: 'Creative Collaboration',
-    description: '브랜드의 본질에 접근하여 결과물을 도출하는 5단계 프로세스입니다.',
+    description: '전문적인 제작 영역은 검증된 크리에이티브 파트너와 협업으로 진행합니다.',
     details: [
-      '그래픽 디자인 (BI, 패키지, 프로모션)',
-      '영상 제작 (숏폼, 브랜드 필름)',
-      '웹 디자인 & 개발'
+      { title: '— 그래픽 디자인', description: 'BI, 패키지, 프로모션' },
+      { title: '— 영상 제작', description: '숏폼, 브랜드 필름' },
+      { title: '— 웹/앱 디자인 & 개발', description: '브랜드 사이트, 랜딩 페이지, 모바일 앱' },
+      { title: '— 공간 디자인', description: '전시, 팝업, 매장' },
+      { title: '— 아티스트 협업', description: '아트 커미션, 콜라보레이션' }
     ]
   }
+];
+
+export const SERVICE_TOOLS = [
+  'Notion', 'Figma', 'CapCut', 'ChatGPT/Claude/Gemini', 'Midjourney', 'Canva'
 ];
 
 export const WORK_PROCESS = [
