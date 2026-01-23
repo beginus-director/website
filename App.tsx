@@ -262,19 +262,19 @@ const App: React.FC = () => {
       {selectedCase && <CaseStudyModal caseStudy={selectedCase.case} index={selectedCase.index} onClose={() => setSelectedCase(null)} />}
 
       {/* Hero Section */}
-      <section id="hero" className="pt-40 pb-24 md:pt-60 md:pb-40 bg-morningSky px-6">
+      <section id="hero" className="pt-32 pb-20 md:pt-60 md:pb-40 bg-morningSky px-6">
         <div className="max-w-7xl mx-auto">
-          <h1 className="heading-xl mb-12">
+          <h1 className="heading-xl mb-10 md:mb-12">
             The<br />
             Brand<br />
             Story.
           </h1>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-            <p className="text-xl md:text-2xl max-w-xl font-medium leading-tight">
-              매거진 에디터 출신 콘텐츠 디렉터가 만드는 브랜드 스토리.<br />
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
+            <p className="text-[17px] md:text-2xl max-w-xl font-medium leading-[1.6] md:leading-tight tracking-tight">
+              매거진 에디터 출신 콘텐츠 디렉터가 만드는 브랜드 스토리. <br className="hidden md:block" />
               감도 높은 브랜딩과 데이터 기반 성과를 연결합니다.
             </p>
-            <a href="#work" className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group">
+            <a href="#work" className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group flex-shrink-0">
               See the work <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
@@ -303,8 +303,28 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      {/* About Section */}
-      <section id="about" className="py-32 px-6">
+      {/* Intro Section */}
+      <section id="about" className="py-24 md:py-40 bg-beginningIvory px-6 border-b border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-[22px] md:text-3xl lg:text-[42px] font-extrabold mb-12 md:mb-20 leading-[1.4] tracking-tight text-brandBlack">
+            매거진의 감도 <span className="text-morningSky inline-block mx-0.5 md:mx-1">×</span> UX의 논리 <span className="text-morningSky inline-block mx-0.5 md:mx-1">×</span> 광고의 성과
+          </h2>
+          <div className="max-w-5xl space-y-8 md:space-y-12">
+            <p className="text-[19px] md:text-2xl lg:text-[34px] font-bold text-gray-800 leading-[1.5] md:leading-tight">
+              스튜디오 비기너스는 <br />
+              콘텐츠 중심의 기획과 실행을 전문으로 하는 <br className="hidden md:block" />
+              크리에이티브 에이전시입니다.
+            </p>
+            <p className="text-[16px] md:text-xl lg:text-[24px] text-gray-600 leading-relaxed font-medium">
+              트렌드를 포착하되 고유한 시선으로 재해석하고, <br className="hidden md:block" />
+              함께 성장하며 브랜드 경험을 만들어갑니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Director Section */}
+      <section id="director" className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] gap-12 md:gap-24 items-start">
           <div className="order-2 md:order-1">
             <SectionHeader 
@@ -318,58 +338,52 @@ const App: React.FC = () => {
             />
             <div className="space-y-12">
               <div>
-                <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">PROFILE</h4>
-                <h3 className="text-3xl font-bold mb-2">이지영 LEE JIYOUNG</h3>
-                <p className="text-gray-500 italic">Magazine Editor & Content Director</p>
+                <h4 className="text-xs font-bold uppercase tracking-widest mb-4 text-morningSky">PROFILE</h4>
+                <h3 className="text-4xl font-extrabold mb-2">이지영 LEE JIYOUNG</h3>
+                <p className="text-xl text-gray-500 italic mb-6">Content Director</p>
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium max-w-2xl">
+                  플랫폼 및 스타트업 환경에서 브랜드 성장 경험을 보유하고 있으며, 데이터 기반 캠페인부터 고객 여정 최적화까지 브랜드 경험을 통합적으로 디자인합니다.
+                </p>
               </div>
               
-              <div className="space-y-12">
+              <div className="space-y-16 pt-8">
                 <div>
-                  <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">주요 경력 (CAREER)</h4>
-                  <ul className="space-y-3">
-                    <li className="flex justify-between border-b border-gray-100 pb-2">
-                      <span>삼성물산 패션부문</span>
-                      <span className="text-gray-400">온라인 프로모션팀</span>
-                    </li>
-                    <li className="flex justify-between border-b border-gray-100 pb-2">
-                      <span>현대카드</span>
-                      <span className="text-gray-400">Product Design팀</span>
-                    </li>
-                    <li className="flex justify-between border-b border-gray-100 pb-2">
-                      <span>코오롱 인더스트리 FnC</span>
-                      <span className="text-gray-400">온라인팀</span>
-                    </li>
-                  </ul>
-                </div>
+                  <h4 className="text-xs font-bold uppercase tracking-widest mb-10 text-morningSky">주요 경력</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+                    {/* Category: Digital Marketing */}
+                    <div>
+                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">디지털 마케팅</h5>
+                      <ul className="space-y-2 text-sm text-gray-600">
+                        <li>갈더마 레스틸렌, 농심 라이필, 유한양행</li>
+                        <li>삼성물산 패션부문 프로모션팀</li>
+                      </ul>
+                    </div>
 
-                <div>
-                  <h4 className="text-sm font-bold uppercase tracking-widest mb-4 text-morningSky">주요 프로젝트 (PROJECTS)</h4>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-1">
-                    <li className="flex items-center border-b border-gray-100 py-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
-                      갈더마코리아 Restylane
-                    </li>
-                    <li className="flex items-center border-b border-gray-100 py-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
-                      농심 Lifill
-                    </li>
-                    <li className="flex items-center border-b border-gray-100 py-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
-                      유한양행 Wellness & Whimzees
-                    </li>
-                    <li className="flex items-center border-b border-gray-100 py-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
-                      LG StanbyME
-                    </li>
-                    <li className="flex items-center border-b border-gray-100 py-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
-                      두산매거진 ALLURE, VOGUE, W
-                    </li>
-                    <li className="flex items-center border-b border-gray-100 py-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-morningSky mr-3 flex-shrink-0"></span>
-                      삼성물산 패션부문 SSF SHOP 외 다수
-                    </li>
-                  </ul>
+                    {/* Category: UX Writing */}
+                    <div>
+                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">UX Writing</h5>
+                      <ul className="space-y-2 text-sm text-gray-600">
+                        <li>현대카드 Product Design팀</li>
+                      </ul>
+                    </div>
+
+                    {/* Category: Branding & Content */}
+                    <div>
+                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">브랜딩 & 콘텐츠</h5>
+                      <ul className="space-y-2 text-sm text-gray-600">
+                        <li>트러스티푸드, LG 스탠바이미</li>
+                        <li>두산매거진 ALLURE, VOGUE, W</li>
+                      </ul>
+                    </div>
+
+                    {/* Category: E-commerce */}
+                    <div>
+                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">이커머스</h5>
+                      <ul className="space-y-2 text-sm text-gray-600">
+                        <li>삼성물산 SSFSHOP, 코오롱몰</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
