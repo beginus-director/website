@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight, Instagram, Mail, Phone, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PROJECTS, SERVICES, WORK_PROCESS, SERVICE_TOOLS } from './constants';
 import { CaseStudy } from './types';
@@ -308,8 +308,7 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
 
 const App: React.FC = () => {
   const [selectedCase, setSelectedCase] = useState<{case: CaseStudy, index: number} | null>(null);
-  const [isContactAnimated, setIsContactAnimated] = useState(false);
-  const contactRef = useRef<HTMLElement>(null);
+  const [showLogo, setShowLogo] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -326,22 +325,10 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsContactAnimated(true), 500);
-        } else {
-          setIsContactAnimated(false);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (contactRef.current) {
-      observer.observe(contactRef.current);
-    }
-
-    return () => observer.disconnect();
+    const interval = setInterval(() => {
+      setShowLogo((prev) => !prev);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -691,17 +678,19 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" ref={contactRef} className="py-16 md:py-32 bg-beginningIvory overflow-hidden">
+      <section id="contact" className="py-16 md:py-32 bg-beginningIvory overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-          <div className="mb-12">
-            <h2 className="text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] mb-8 fade-container">
-              <span className={`fade-item break-keep ${!isContactAnimated ? 'active' : ''}`}>
-                The story begins with us
-              </span>
-              <span className={`fade-item logo-fade-text logo-font lowercase ${isContactAnimated ? 'active' : ''}`}>
-                beginus
-              </span>
-            </h2>
+          <div className="mb-12 h-32 md:h-40 flex items-center justify-center relative">
+            {/* Text */}
+            <p className={`absolute text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] text-brandBlack transition-opacity duration-1000 ${showLogo ? 'opacity-0' : 'opacity-100'}`}>
+              The story begins with us
+            </p>
+            {/* Image - Using Footer Logo Source (logo_2.png) as requested */}
+            <img 
+              src="https://raw.githubusercontent.com/beginus-director/website/0ee73fcf93582ee0899847969c2d9fd60b76757a/logo_2.png"
+              alt="Studio Beginus"
+              className={`absolute h-16 md:h-24 w-auto object-contain transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}
+            />
           </div>
           <div className="flex flex-col items-center space-y-8">
             <p className="text-[18px] md:text-[20px] max-w-2xl text-gray-600 font-medium leading-[1.6] tracking-[-0.01em] break-keep">
