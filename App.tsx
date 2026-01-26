@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Instagram, Mail, Phone, Plus, Minus, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Instagram, Mail, Phone, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { PROJECTS, SERVICES, WORK_PROCESS, SERVICE_TOOLS } from './constants';
-import { Project, CaseStudy } from './types';
+import { CaseStudy } from './types';
+import Logo from './Logo';
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -61,15 +63,24 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
         <a 
           href="#" 
           onClick={(e) => handleLinkClick(e, 'hero')}
-          className="logo-font text-2xl lowercase text-brandBlack"
+          className="flex items-center hover:opacity-80 transition-opacity"
+          aria-label="Beginus Home"
         >
-          beginus
+          <span className="text-xl font-medium tracking-tight text-brandBlack">studiobeginus.com</span>
         </a>
         
         <div className="hidden md:flex items-center space-x-12 text-sm font-medium uppercase tracking-widest text-brandBlack">
@@ -80,29 +91,86 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
           <a href="#" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-morningSky transition-colors">Contact</a>
         </div>
 
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-brandBlack" aria-label="Toggle menu">
-          {isOpen ? <X /> : <Menu />}
+        <button onClick={() => setIsOpen(true)} className="md:hidden text-brandBlack p-2" aria-label="Open menu">
+          <Menu size={28} />
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white fixed inset-0 top-20 z-40 p-8 flex flex-col space-y-8 text-3xl font-bold">
-          <a href="#" onClick={(e) => handleLinkClick(e, 'about')}>About</a>
-          <a href="#" onClick={(e) => handleLinkClick(e, 'work')}>Work</a>
-          <a href="#" onClick={(e) => handleLinkClick(e, 'service')}>Service</a>
-          <a href="#" onClick={(e) => handleLinkClick(e, 'method')}>Method</a>
-          <a href="#" onClick={(e) => handleLinkClick(e, 'contact')}>Contact</a>
+      {/* Mobile Full Screen Menu Overlay */}
+      <div 
+        className={`fixed inset-0 w-screen h-screen z-[9999] flex flex-col transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}
+        style={{ backgroundColor: '#111111' }}
+      >
+        
+        {/* Mobile Header Inside Menu */}
+        <div className="h-20 flex items-center justify-between px-6 lg:px-8 shrink-0">
+          <a 
+            href="#" 
+            onClick={(e) => handleLinkClick(e, 'hero')}
+            className="text-xl font-medium tracking-tight text-morningSky cursor-pointer hover:opacity-70 transition-opacity"
+          >
+            studiobeginus.com
+          </a>
+          <button 
+            onClick={() => setIsOpen(false)} 
+            className="w-12 h-12 flex items-center justify-center text-morningSky hover:text-white transition-all" 
+            aria-label="Close menu"
+          >
+            <X size={32} />
+          </button>
         </div>
-      )}
+
+        {/* Links Area */}
+        <div className="flex-grow flex flex-col items-center justify-center space-y-8">
+          {['home', 'about', 'work', 'service', 'method', 'contact'].map((item) => (
+            <a 
+              key={item}
+              href={`#${item === 'home' ? 'hero' : item}`} 
+              onClick={(e) => handleLinkClick(e, item === 'home' ? 'hero' : item)}
+              className="text-4xl md:text-5xl font-medium text-morningSky hover:text-white transition-colors lowercase"
+            >
+              {item}
+            </a>
+          ))}
+          
+          {/* Mobile Social Icons Section */}
+          <div className="flex space-x-6 pt-10">
+            <a 
+              href="https://instagram.com/studio.beginus" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-12 h-12 rounded-full bg-morningSky text-brandBlack flex items-center justify-center hover:scale-110 transition-transform"
+              aria-label="Instagram"
+            >
+              <Instagram size={24} />
+            </a>
+            <a 
+              href="mailto:hello@studiobeginus.com"
+              className="w-12 h-12 rounded-full bg-morningSky text-brandBlack flex items-center justify-center hover:scale-110 transition-transform"
+              aria-label="Email"
+            >
+              <Mail size={24} />
+            </a>
+          </div>
+        </div>
+
+        {/* Padding for aesthetics */}
+        <div className="h-20 shrink-0"></div>
+      </div>
     </nav>
   );
 };
 
 const SectionHeader = ({ title, subtitle, light }: { title: string; subtitle?: React.ReactNode; light?: boolean }) => (
-  <div className="mb-16">
-    <h2 className={`heading-lg mb-6 ${light ? 'text-morningSky' : 'text-brandBlack'}`}>{title}</h2>
-    {subtitle && <p className={`text-xl max-w-2xl leading-relaxed ${light ? 'text-morningSky/80' : 'text-gray-500'}`}>{subtitle}</p>}
+  <div className="mb-12 md:mb-16">
+    <h2 className={`text-[32px] md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-[-0.04em] mb-6 break-keep ${light ? 'text-morningSky' : 'text-brandBlack'}`}>
+      {title}
+    </h2>
+    {subtitle && (
+      <p className={`text-[16px] md:text-[18px] leading-[1.6] tracking-[-0.01em] max-w-2xl break-keep ${light ? 'text-morningSky/80' : 'text-gray-500'}`}>
+        {subtitle}
+      </p>
+    )}
   </div>
 );
 
@@ -130,12 +198,12 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-brandBlack/90 backdrop-blur-md" onClick={onClose}></div>
       
-      <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-[2rem] shadow-2xl overflow-hidden animate-fade-in flex flex-col lg:flex-row">
+      <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-none shadow-2xl overflow-hidden animate-fade-in flex flex-col lg:flex-row">
         
         {/* Floating Close Button */}
         <button 
           onClick={onClose} 
-          className="absolute top-5 right-5 lg:top-8 lg:right-8 z-[120] p-3 bg-brandBlack/10 hover:bg-brandBlack text-brandBlack hover:text-white rounded-full backdrop-blur-sm transition-all duration-300"
+          className="absolute top-5 right-5 lg:top-8 lg:right-8 z-[120] p-3 bg-brandBlack/10 hover:bg-brandBlack text-brandBlack hover:text-white rounded-none backdrop-blur-sm transition-all duration-300"
           aria-label="Close modal"
         >
           <X size={24} />
@@ -159,14 +227,14 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
             <>
               <button 
                 onClick={prevImg}
-                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-brandBlack transition-all opacity-0 group-hover:opacity-100 z-10"
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-none bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-brandBlack transition-all opacity-0 group-hover:opacity-100 z-10"
                 aria-label="Previous image"
               >
                 <ChevronLeft size={24} />
               </button>
               <button 
                 onClick={nextImg}
-                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-brandBlack transition-all opacity-0 group-hover:opacity-100 z-10"
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-none bg-white/10 backdrop-blur-md text-white hover:bg-white hover:text-brandBlack transition-all opacity-0 group-hover:opacity-100 z-10"
                 aria-label="Next image"
               >
                 <ChevronRight size={24} />
@@ -176,7 +244,7 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
                   <button 
                     key={i}
                     onClick={() => setCurrentImgIndex(i)}
-                    className={`h-1 rounded-full transition-all duration-500 ${i === currentImgIndex ? 'bg-white w-8' : 'bg-white/30 w-3'}`}
+                    className={`h-1 transition-all duration-500 rounded-none ${i === currentImgIndex ? 'bg-white w-8' : 'bg-white/30 w-3'}`}
                   />
                 ))}
               </div>
@@ -184,49 +252,49 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
           )}
         </div>
         
-        {/* Right: Refined Compact Content Section */}
+        {/* Right: Content Section */}
         <div className="w-full lg:w-[45%] bg-beginningIvory flex flex-col justify-center p-10 lg:p-14 overflow-hidden">
           <div className="max-w-md mx-auto w-full space-y-5 lg:space-y-6">
             <div className="space-y-1">
-              <span className="text-morningSky font-black uppercase tracking-[0.2em] text-[9px] block">
+              <span className="text-morningSky font-black uppercase tracking-[0.2em] text-[10px] block">
                 CASE {caseId} / {caseStudy.partner.split('|')[0].trim()}
               </span>
-              <h3 className="text-2xl lg:text-3xl font-black text-brandBlack leading-tight tracking-tight">
+              <h3 className="text-[28px] md:text-[32px] font-extrabold text-brandBlack leading-[1.1] tracking-[-0.04em] break-keep">
                 {caseStudy.title}
               </h3>
-              <p className="text-sm lg:text-base font-bold text-gray-400 italic leading-none">{caseStudy.subtitle}</p>
+              <p className="text-[14px] font-bold text-gray-400 italic leading-tight break-keep">{caseStudy.subtitle}</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 lg:gap-5">
               <div className="space-y-1">
-                <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h5>
-                <p className="text-sm lg:text-base text-brandBlack font-extrabold leading-tight">{caseStudy.partner}</p>
+                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h5>
+                <p className="text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.partner}</p>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h5>
-                  <p className="text-sm lg:text-base text-brandBlack font-extrabold leading-tight">{caseStudy.artist}</p>
+                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h5>
+                  <p className="text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.artist}</p>
                 </div>
                 <div className="space-y-1">
-                  <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h5>
-                  <p className="text-sm lg:text-base text-brandBlack font-extrabold leading-tight">{caseStudy.type}</p>
+                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h5>
+                  <p className="text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.type}</p>
                 </div>
               </div>
             </div>
 
             <div className="space-y-1">
-              <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h5>
-              <p className="text-gray-600 text-[13px] lg:text-[15px] leading-snug font-medium">{caseStudy.overview}</p>
+              <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h5>
+              <p className="text-gray-600 text-[15px] leading-[1.6] tracking-[-0.01em] font-medium break-keep">{caseStudy.overview}</p>
             </div>
 
             <div className="space-y-2">
-              <h5 className="text-[8px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h5>
+              <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h5>
               <ul className="space-y-1.5">
                 {caseStudy.achievements.map((ach, idx) => (
                   <li key={idx} className="flex items-start">
-                    <CheckCircle2 className="text-morningSky mr-2 mt-0.5 flex-shrink-0" size={12} />
-                    <span className="text-brandBlack font-bold leading-tight text-[12px] lg:text-[14px]">{ach}</span>
+                    <CheckCircle2 className="text-morningSky mr-2 mt-1 flex-shrink-0" size={14} />
+                    <span className="text-brandBlack font-bold leading-tight text-[14px] break-keep">{ach}</span>
                   </li>
                 ))}
               </ul>
@@ -246,7 +314,14 @@ const App: React.FC = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -254,7 +329,7 @@ const App: React.FC = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsContactAnimated(true);
+          setTimeout(() => setIsContactAnimated(true), 500);
         } else {
           setIsContactAnimated(false);
         }
@@ -270,29 +345,29 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="antialiased text-brandBlack bg-white">
+    <div className="antialiased text-brandBlack bg-white font-sans">
       <CustomCursor />
       <Navbar onScroll={scrollToSection} />
 
       {selectedCase && <CaseStudyModal caseStudy={selectedCase.case} index={selectedCase.index} onClose={() => setSelectedCase(null)} />}
 
       {/* Hero Section */}
-      <section id="hero" className="pt-32 pb-20 md:pt-60 md:pb-40 bg-morningSky px-6">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="heading-xl mb-10 md:mb-12">
+      <section id="hero" className="pt-32 pb-16 md:pt-60 md:pb-32 bg-morningSky">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h1 className="text-[44px] md:text-[80px] font-extrabold leading-[1.1] tracking-[-0.04em] mb-10 md:mb-12 break-keep">
             The<br />
             Brand<br />
             Story.
           </h1>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
-            <p className="text-[17px] md:text-2xl max-w-xl font-medium leading-[1.6] md:leading-tight tracking-tight">
+            <p className="text-[16px] md:text-[18px] max-w-2xl font-medium leading-[1.6] tracking-[-0.01em] break-keep">
               매거진 에디터 출신 콘텐츠 디렉터가 만드는 브랜드 스토리. <br className="hidden md:block" />
               감도 높은 브랜딩과 데이터 기반 성과를 연결합니다.
             </p>
             <a 
               href="javascript:void(0)" 
               onClick={() => scrollToSection('work')}
-              className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group flex-shrink-0"
+              className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group flex-shrink-0 font-bold mt-8 md:mt-0"
             >
               View Case Study <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
             </a>
@@ -301,7 +376,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Intro Bar */}
-      <div className="bg-brandBlack text-white py-12 px-6 overflow-hidden">
+      <div className="bg-brandBlack text-white py-12 overflow-hidden">
         <div className="flex whitespace-nowrap space-x-12 animate-marquee items-center text-sm font-bold uppercase tracking-widest">
           <span>CREATIVE STUDIO FOR BRANDING & CONTENT</span>
           <span className="w-2 h-2 rounded-full bg-morningSky"></span>
@@ -323,18 +398,18 @@ const App: React.FC = () => {
       </div>
 
       {/* About Section */}
-      <section id="about" className="py-24 md:py-40 bg-beginningIvory px-6 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-[22px] md:text-3xl lg:text-[42px] font-extrabold mb-12 md:mb-20 leading-[1.4] tracking-tight text-brandBlack">
+      <section id="about" className="py-16 md:py-32 bg-beginningIvory border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <h2 className="text-[32px] md:text-5xl lg:text-6xl font-extrabold mb-12 md:mb-16 leading-[1.1] tracking-[-0.04em] text-brandBlack max-w-5xl break-keep">
             매거진의 감도 <span className="text-morningSky inline-block mx-0.5 md:mx-1">×</span> UX의 논리 <span className="text-morningSky inline-block mx-0.5 md:mx-1">×</span> 광고의 성과
           </h2>
-          <div className="max-w-5xl space-y-8 md:space-y-12">
-            <p className="text-[19px] md:text-2xl lg:text-[34px] font-bold text-gray-800 leading-[1.5] md:leading-tight">
+          <div className="max-w-3xl space-y-8 md:space-y-12">
+            <p className="text-[20px] md:text-[24px] font-bold text-gray-800 leading-[1.4] tracking-[-0.02em] break-keep">
               스튜디오 비기너스는 <br />
               콘텐츠 중심의 기획과 실행을 전문으로 하는 <br className="hidden md:block" />
               크리에이티브 에이전시입니다.
             </p>
-            <p className="text-[16px] md:text-xl lg:text-[24px] text-gray-600 leading-relaxed font-medium">
+            <p className="text-[16px] md:text-[18px] text-gray-600 leading-[1.6] tracking-[-0.01em] font-medium break-keep">
               트렌드를 포착하되 고유한 시선으로 재해석하고, <br className="hidden md:block" />
               함께 성장하며 브랜드 경험을 만들어갑니다.
             </p>
@@ -343,8 +418,8 @@ const App: React.FC = () => {
       </section>
 
       {/* Director Section */}
-      <section id="director" className="py-32 px-6 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] gap-12 md:gap-24 items-start">
+      <section id="director" className="py-16 md:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 grid md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] gap-12 md:gap-24 items-start">
           <div className="order-2 md:order-1">
             <SectionHeader 
               title="The Director." 
@@ -357,41 +432,41 @@ const App: React.FC = () => {
             />
             <div className="space-y-12">
               <div>
-                <h4 className="text-xs font-bold uppercase tracking-widest mb-4 text-morningSky">PROFILE</h4>
-                <h3 className="text-4xl font-extrabold mb-2">이지영 LEE JIYOUNG</h3>
-                <p className="text-xl text-gray-500 italic mb-6">Content Director</p>
-                <p className="text-lg md:text-xl text-gray-700 leading-relaxed font-medium max-w-2xl">
+                <h4 className="text-[10px] font-bold uppercase tracking-widest mb-4 text-morningSky">PROFILE</h4>
+                <h3 className="text-[32px] md:text-[40px] font-extrabold mb-2 leading-[1.1] tracking-[-0.03em] break-keep">이지영 LEE JIYOUNG</h3>
+                <p className="text-[18px] text-gray-500 italic mb-6 break-keep">Content Director</p>
+                <p className="text-[16px] md:text-[18px] text-gray-700 leading-[1.6] tracking-[-0.01em] font-medium max-w-2xl break-keep">
                   플랫폼 및 스타트업 환경에서 브랜드 성장 경험을 보유하고 있으며, 데이터 기반 캠페인부터 고객 여정 최적화까지 브랜드 경험을 통합적으로 디자인합니다.
                 </p>
               </div>
               
               <div className="space-y-16 pt-8">
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-widest mb-10 text-morningSky">주요 경력</h4>
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest mb-10 text-morningSky">주요 경력</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
                     <div>
-                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">디지털 마케팅</h5>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <h5 className="text-[16px] font-bold mb-4 border-b border-gray-100 pb-2 break-keep">디지털 마케팅</h5>
+                      <ul className="space-y-2 text-[14px] text-gray-600 leading-relaxed font-medium break-keep">
                         <li>갈더마 레스틸렌, 농심 라이필, 유한양행</li>
                         <li>삼성물산 패션부문 프로모션팀</li>
                       </ul>
                     </div>
                     <div>
-                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">UX Writing</h5>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <h5 className="text-[16px] font-bold mb-4 border-b border-gray-100 pb-2 break-keep">UX Writing</h5>
+                      <ul className="space-y-2 text-[14px] text-gray-600 leading-relaxed font-medium break-keep">
                         <li>현대카드 Product Design팀</li>
                       </ul>
                     </div>
                     <div>
-                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">브랜딩 & 콘텐츠</h5>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <h5 className="text-[16px] font-bold mb-4 border-b border-gray-100 pb-2 break-keep">브랜딩 & 콘텐츠</h5>
+                      <ul className="space-y-2 text-[14px] text-gray-600 leading-relaxed font-medium break-keep">
                         <li>트러스티푸드, LG 스탠바이미</li>
                         <li>두산매거진 ALLURE, VOGUE, W</li>
                       </ul>
                     </div>
                     <div>
-                      <h5 className="text-lg font-bold mb-4 border-b border-gray-100 pb-2">이커머스</h5>
-                      <ul className="space-y-2 text-sm text-gray-600">
+                      <h5 className="text-[16px] font-bold mb-4 border-b border-gray-100 pb-2 break-keep">이커머스</h5>
+                      <ul className="space-y-2 text-[14px] text-gray-600 leading-relaxed font-medium break-keep">
                         <li>삼성물산 SSFSHOP, 코오롱몰</li>
                       </ul>
                     </div>
@@ -401,11 +476,11 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="order-1 md:order-2">
-            <div className="w-full aspect-[3/4] rounded-2xl overflow-hidden bg-gray-100 shadow-sm mt-4">
+            <div className="w-full mt-4">
               <img 
-                src="https://raw.githubusercontent.com/beginus-director/website/ebd9366d327e97bb73b7e8a87e15152c39cc08a8/my-profile-f.png" 
+                src="https://raw.githubusercontent.com/beginus-director/website/0aedd91010a82f886b06ceff4d3d81c52d05c6c2/director_1.png" 
                 alt="Director Lee Jiyoung" 
-                className="w-full h-full object-cover"
+                className="w-full h-auto block"
                 decoding="async"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
@@ -418,13 +493,13 @@ const App: React.FC = () => {
       </section>
 
       {/* Work Section */}
-      <section id="work" className="py-32 px-6 bg-brandBlack">
-        <div className="max-w-7xl mx-auto">
+      <section id="work" className="py-16 md:py-32 bg-brandBlack">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <SectionHeader 
             title="The Work." 
             light={true}
             subtitle={
-              <span className="whitespace-pre-line">
+              <span className="whitespace-pre-line break-keep">
                 Brand storytelling & content strategy{"\n"}
                 across editorial, social media & digital marketing.
               </span>
@@ -434,82 +509,86 @@ const App: React.FC = () => {
           <div className="space-y-32">
             {PROJECTS.map((project) => (
               <div key={project.id} className="group">
-                <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div className={`grid grid-cols-1 gap-12 items-center mb-20 ${project.id === 'yourown' ? 'lg:grid-cols-[4fr_6fr]' : 'md:grid-cols-2'}`}>
                   <div className="order-2 md:order-1 text-morningSky">
                     <span className="inline-block px-4 py-1 rounded-full border border-morningSky text-[10px] font-black uppercase tracking-[0.2em] mb-6">CASE STUDY</span>
-                    <h3 className="text-5xl font-extrabold mb-6 tracking-tight text-white">{project.title}</h3>
-                    <p className="text-xl text-morningSky/90 mb-8 leading-relaxed whitespace-pre-line">
+                    <h3 className="text-[32px] md:text-5xl lg:text-6xl font-extrabold mb-6 leading-[1.1] tracking-[-0.04em] text-white break-keep">{project.title}</h3>
+                    <p className={`text-[16px] md:text-[18px] text-morningSky/90 mb-8 leading-[1.6] tracking-[-0.01em] ${project.id === 'yourown' ? 'max-w-3xl whitespace-normal' : 'max-w-xl whitespace-pre-line'} break-keep`}>
                       {project.description}
                     </p>
-                    <div className="grid grid-cols-2 gap-6 text-sm">
+                    <div className="grid grid-cols-2 gap-6 text-[14px]">
                       <div>
                         <p className="font-extrabold text-morningSky uppercase tracking-wider mb-1">Period</p>
-                        <p className="text-morningSky/80">{project.period}</p>
+                        <p className="text-morningSky/80 break-keep">{project.period}</p>
                       </div>
                       <div>
                         <p className="font-extrabold text-morningSky uppercase tracking-wider mb-1">Client</p>
-                        <p className="text-morningSky/80">{project.client}</p>
+                        <p className="text-morningSky/80 break-keep">{project.client}</p>
                       </div>
                       <div className="col-span-2">
                         <p className="font-extrabold text-morningSky uppercase tracking-wider mb-1">Scope</p>
-                        <p className="text-morningSky/80">{project.scope.join(' / ')}</p>
+                        <p className="text-morningSky/80 break-keep">{project.scope.join(' / ')}</p>
                       </div>
                     </div>
                   </div>
-                  <div className={`order-1 md:order-2 overflow-hidden aspect-[3/2] transition-all duration-500 hover:scale-[1.01] ${project.id === 'yourown' ? 'bg-transparent shadow-none' : 'bg-morningSky shadow-2xl rounded-[2.5rem]'}`}>
+                  <div className={`order-1 md:order-2 flex justify-center lg:justify-end transition-all duration-500 hover:scale-[1.01] ${project.id === 'yourown' ? '' : 'overflow-hidden aspect-[3/2] bg-morningSky shadow-2xl rounded-none'}`}>
                     {project.link ? (
                       <a 
                         href={project.link} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="block w-full h-full hover:scale-[1.02] hover:brightness-[1.1] transition-all duration-300 ease-in-out"
+                        className={`block w-full transition-all duration-300 ease-in-out ${project.id === 'yourown' ? 'mx-auto' : ''}`}
                         title={`Visit ${project.title} website`}
                       >
                         <img 
                           src={project.image} 
                           alt={project.title} 
-                          className={`w-full h-full ${project.id === 'yourown' ? 'object-contain p-0 md:p-0 scale-[1.15]' : 'object-cover'}`} 
+                          className={project.id === 'yourown' 
+                            ? "block w-auto max-w-[160px] md:max-w-[240px] h-auto mx-auto object-contain"
+                            : "w-full h-full object-cover"} 
                           loading="lazy"
                         />
                       </a>
                     ) : (
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        className={`w-full h-full ${project.id === 'yourown' ? 'object-contain p-0 md:p-0 scale-[1.15]' : 'object-cover'}`} 
-                        loading="lazy"
-                      />
+                      <div className={`w-full ${project.id === 'yourown' ? 'mx-auto' : 'h-full'}`}>
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className={project.id === 'yourown' 
+                            ? "block w-auto max-w-[160px] md:max-w-[240px] h-auto mx-auto object-contain"
+                            : "w-full h-full object-cover"} 
+                          loading="lazy"
+                        />
+                      </div>
                     )}
                   </div>
                 </div>
 
-                {/* Case Study Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+                {/* Case Study Grid - 4 Columns Square Gallery */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-y-12 gap-x-4 md:gap-x-6 lg:gap-x-8">
                   {project.caseStudies?.map((caseStudy, cIdx) => (
                     <div 
                       key={caseStudy.id} 
-                      className="group/card cursor-pointer aspect-[4/5] flex flex-col rounded-[2.5rem] overflow-hidden bg-morningSky shadow-lg ring-1 ring-white/10 hover:ring-morningSky transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_40px_80px_rgba(134,208,252,0.15)]"
+                      className="group/card cursor-pointer flex flex-col"
                       onClick={() => setSelectedCase({case: caseStudy, index: cIdx})}
                     >
-                      <div className="flex-[4] overflow-hidden">
+                      <div className="overflow-hidden aspect-[3/4] bg-morningSky rounded-none">
                         <img 
                           src={caseStudy.thumbnail} 
                           alt={caseStudy.title} 
-                          className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-1000 ease-out" 
+                          className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700 ease-out rounded-none" 
                           loading="lazy"
                         />
                       </div>
-                      <div className="flex-1 bg-beginningIvory p-6 md:p-8 flex justify-between items-center">
-                        <div className="max-w-[80%]">
-                          <h4 className="text-[10px] font-black text-morningSky uppercase tracking-[0.3em] mb-1.5 leading-none">
-                            {caseStudy.title}
-                          </h4>
-                          <h3 className="text-xl md:text-2xl font-black text-brandBlack leading-tight tracking-tight line-clamp-1">
-                            {caseStudy.subtitle}
-                          </h3>
-                        </div>
-                        <div className="bg-brandBlack p-3 rounded-full text-white group-hover/card:bg-morningSky group-hover/card:scale-110 transition-all duration-500 flex-shrink-0">
-                          <ArrowUpRight size={18} />
+                      <div className="mt-4 flex flex-col items-start">
+                        <h4 className="text-[10px] font-black text-morningSky uppercase tracking-[0.2em] mb-1 leading-none">
+                          {caseStudy.title}
+                        </h4>
+                        <h3 className="text-[18px] md:text-[20px] font-extrabold text-white leading-[1.2] tracking-[-0.03em] mb-2 line-clamp-1 break-keep">
+                          {caseStudy.subtitle}
+                        </h3>
+                        <div className="inline-flex items-center text-[12px] font-bold text-gray-400 group-hover/card:text-morningSky transition-colors">
+                          View details <ChevronRight size={14} className="ml-1 group-hover/card:translate-x-1 transition-transform" />
                         </div>
                       </div>
                     </div>
@@ -522,8 +601,8 @@ const App: React.FC = () => {
       </section>
 
       {/* Service Section */}
-      <section id="service" className="py-32 md:py-48 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section id="service" className="py-16 md:py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <SectionHeader 
             title="The Service." 
             subtitle="에디토리얼 감각과 마케팅 전략을 연결하는 서비스를 제공합니다."
@@ -531,15 +610,15 @@ const App: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-stretch">
             {/* Left Card: Content Marketing & Branding */}
             <div className="p-10 md:p-14 rounded-[2.5rem] bg-earlySky flex flex-col h-full">
-              <h3 className="text-3xl font-extrabold mb-4">{SERVICES[0].title}</h3>
-              <p className="text-lg text-gray-700 mb-10 font-medium">{SERVICES[0].description}</p>
+              <h3 className="text-[28px] md:text-[32px] font-extrabold mb-4 leading-[1.1] tracking-[-0.04em] break-keep">{SERVICES[0].title}</h3>
+              <p className="text-[16px] md:text-[18px] text-gray-700 mb-10 font-medium leading-[1.6] tracking-[-0.01em] break-keep">{SERVICES[0].description}</p>
               <div className="space-y-8 flex-grow">
                 {SERVICES[0].details.map((item, dIdx) => (
                   <div key={dIdx} className="space-y-1.5">
-                    <h4 className="font-bold text-[16px] md:text-[17px] text-brandBlack leading-tight">
+                    <h4 className="font-bold text-[16px] md:text-[18px] text-brandBlack leading-tight break-keep">
                       {item.title}
                     </h4>
-                    <p className="text-[14px] md:text-[15px] text-gray-700 font-medium leading-relaxed pl-4 border-l border-brandBlack/10">
+                    <p className="text-[14px] md:text-[15px] text-gray-700 font-medium leading-relaxed pl-4 border-l border-brandBlack/10 break-keep">
                       {item.description}
                     </p>
                   </div>
@@ -550,15 +629,15 @@ const App: React.FC = () => {
             {/* Right Card: Collaboration & Tools */}
             <div className="p-10 md:p-14 rounded-[2.5rem] bg-beginningIvory flex flex-col h-full">
               <div className="mb-14">
-                <h3 className="text-3xl font-extrabold mb-4">{SERVICES[1].title}</h3>
-                <p className="text-lg text-gray-700 mb-8 font-medium">{SERVICES[1].description}</p>
+                <h3 className="text-[28px] md:text-[32px] font-extrabold mb-4 leading-[1.1] tracking-[-0.04em] break-keep">{SERVICES[1].title}</h3>
+                <p className="text-[16px] md:text-[18px] text-gray-700 mb-8 font-medium leading-[1.6] tracking-[-0.01em] break-keep">{SERVICES[1].description}</p>
                 <div className="space-y-6">
                   {SERVICES[1].details.map((item, dIdx) => (
                     <div key={dIdx} className="flex flex-col space-y-1">
-                      <h4 className="font-bold text-[16px] text-brandBlack leading-tight">
+                      <h4 className="font-bold text-[16px] text-brandBlack leading-tight break-keep">
                         {item.title}
                       </h4>
-                      <p className="text-[14px] text-gray-600 font-medium leading-relaxed pl-4 border-l border-brandBlack/10">
+                      <p className="text-[14px] text-gray-600 font-medium leading-relaxed pl-4 border-l border-brandBlack/10 break-keep">
                         {item.description}
                       </p>
                     </div>
@@ -573,7 +652,7 @@ const App: React.FC = () => {
                   {SERVICE_TOOLS.map((tool, tIdx) => (
                     <span 
                       key={tIdx} 
-                      className="px-5 py-2.5 bg-white text-brandBlack text-[13px] font-black rounded-full shadow-sm ring-1 ring-brandBlack/5"
+                      className="px-5 py-2.5 bg-white text-brandBlack text-[12px] font-black rounded-full shadow-sm ring-1 ring-brandBlack/5"
                     >
                       {tool}
                     </span>
@@ -586,11 +665,11 @@ const App: React.FC = () => {
       </section>
 
       {/* Method Section */}
-      <section id="method" className="py-32 md:py-48 bg-beginningIvory text-brandBlack border-t border-brandBlack px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-20">
-            <h2 className="heading-lg mb-6">The Method.</h2>
-            <p className="text-xl max-w-2xl text-gray-700 font-medium">
+      <section id="method" className="py-16 md:py-32 bg-beginningIvory text-brandBlack border-t border-brandBlack">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="mb-12 md:mb-20">
+            <h2 className="text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] mb-6 break-keep">The Method.</h2>
+            <p className="text-[16px] md:text-[18px] max-w-2xl text-gray-700 font-medium leading-[1.6] tracking-[-0.01em] break-keep">
               복잡한 절차 대신, 본질에 집중하는 3단계 워크플로우를 지향합니다.
             </p>
           </div>
@@ -601,8 +680,8 @@ const App: React.FC = () => {
                 className={`py-12 md:py-16 px-0 md:px-10 border-b md:border-b-0 border-brandBlack ${index < 2 ? 'md:border-r border-brandBlack' : ''}`}
               >
                 <span className="block text-[10px] font-black uppercase tracking-[0.3em] mb-8 text-morningSky">{item.step}</span>
-                <h3 className="text-3xl font-black mb-6 tracking-tight">{item.title}</h3>
-                <p className="text-lg text-gray-700 leading-relaxed font-medium">
+                <h3 className="text-[28px] md:text-[32px] font-extrabold mb-6 leading-[1.1] tracking-[-0.04em] break-keep">{item.title}</h3>
+                <p className="text-[16px] md:text-[18px] text-gray-700 leading-[1.6] tracking-[-0.01em] font-medium break-keep">
                   {item.description}
                 </p>
               </div>
@@ -612,26 +691,27 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" ref={contactRef} className="py-32 px-6 bg-beginningIvory overflow-hidden">
-        <div className="max-w-7xl mx-auto text-center">
+      <section id="contact" ref={contactRef} className="py-16 md:py-32 bg-beginningIvory overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <div className="mb-12">
-            <h2 className={`heading-lg mb-4 kinetic-title ${isContactAnimated ? 'is-animated' : ''}`}>
-              <span className="fade-text part-story">Story&nbsp;</span>
-              <span className="brand-part part-begin">Begin</span>
-              <span className="brand-part part-s">s</span>
-              <span className="fade-text part-with">&nbsp;with&nbsp;</span>
-              <span className="brand-part part-u">U</span>
+            <h2 className="text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] mb-8 fade-container">
+              <span className={`fade-item break-keep ${!isContactAnimated ? 'active' : ''}`}>
+                The story begins with us
+              </span>
+              <span className={`fade-item logo-fade-text logo-font lowercase ${isContactAnimated ? 'active' : ''}`}>
+                beginus
+              </span>
             </h2>
           </div>
           <div className="flex flex-col items-center space-y-8">
-            <p className="text-2xl max-w-2xl text-gray-600 font-medium">
+            <p className="text-[18px] md:text-[20px] max-w-2xl text-gray-600 font-medium leading-[1.6] tracking-[-0.01em] break-keep">
               새로운 브랜드 스토리, 스튜디오 비기너스와 함께 시작해보세요.
             </p>
-            <div className="flex flex-wrap justify-center gap-6">
-              <a href="mailto:hello@studiobeginus.com" className="flex items-center bg-brandBlack text-white px-8 py-4 rounded-full font-bold hover:bg-morningSky transition-colors">
+            <div className="flex flex-wrap justify-center gap-6 mt-8">
+              <a href="mailto:hello@studiobeginus.com" className="flex items-center bg-brandBlack text-white px-8 py-4 rounded-full font-bold hover:bg-morningSky transition-colors break-keep">
                 <Mail className="mr-3" /> hello@studiobeginus.com
               </a>
-              <a href="tel:+821066897073" className="flex items-center bg-white border border-gray-200 px-8 py-4 rounded-full font-bold hover:border-morningSky transition-colors">
+              <a href="tel:+821066897073" className="flex items-center bg-white border border-gray-200 px-8 py-4 rounded-full font-bold hover:border-morningSky transition-colors break-keep">
                 <Phone className="mr-3" /> +82 10-6689-7073
               </a>
             </div>
@@ -645,31 +725,24 @@ const App: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-20 px-6 bg-brandBlack text-morningSky border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
+      <footer className="py-16 md:py-20 bg-brandBlack text-morningSky border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
             <div>
-              <h2 className="logo-font text-4xl lowercase mb-6 text-morningSky">beginus</h2>
-              <div className="text-sm text-morningSky/80 space-y-2 uppercase tracking-widest font-bold">
+              <Logo className="h-8 md:h-10 w-auto text-morningSky mb-8" />
+              <div className="text-[14px] text-morningSky/80 space-y-2 uppercase tracking-widest font-bold break-keep">
                 <p>Studio Beginus 스튜디오 비기너스</p>
                 <p>Director Jiyoung Lee</p>
                 <p>Business: 260-09-03112</p>
               </div>
             </div>
-            <div className="text-sm text-morningSky/80 text-right">
-              <p className="mb-4 font-bold text-morningSky">Beginus for Beginners — Begin again. Fail better. Grow together.</p>
-              <p className="text-xs">&copy; 2026 Studio Beginus. All rights reserved.</p>
+            <div className="text-[14px] text-morningSky/80 text-right md:max-w-md">
+              <p className="mb-4 font-bold text-morningSky leading-relaxed break-keep">Beginus for Beginners — Begin again. Fail better. Grow together.</p>
+              <p className="text-[12px] opacity-60 break-keep">&copy; 2026 Studio Beginus. All rights reserved.</p>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Sticky CTA (Mobile) */}
-      <div className="md:hidden fixed bottom-6 left-6 right-6 z-50">
-        <a href="javascript:void(0)" onClick={() => scrollToSection('contact')} className="flex items-center justify-center w-full h-16 bg-brandBlack text-white rounded-full shadow-2xl font-bold">
-          Start a project <ArrowRight className="ml-2" />
-        </a>
-      </div>
     </div>
   );
 };

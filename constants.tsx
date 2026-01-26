@@ -11,15 +11,15 @@ export const PROJECTS: Project[] = [
     role: 'Content Director & Editor',
     scope: ['Brand Identity', 'Content Strategy', 'Visual Design', 'Social Media Management'],
     link: 'https://yourown.kr/',
-    description: '미술 작품 의뢰라는 새로운 영역을 대중에게 소개하기 위해\nStory / Artist Interview / Art Life 3가지 콘텐츠 시리즈로\n브랜드 스토리를 구축하고 54+ 브랜드 콘텐츠를 제작했습니다.',
+    description: '미술 작품 의뢰라는 새로운 영역을 대중에게 소개하기 위해 Story / Artist Interview / Art Life 3가지 시리즈로 브랜드 스토리를 구축하고 54+ 브랜드 콘텐츠를 제작했습니다.',
     challenge: '미술 작품 의뢰라는 새로운 영역을 대중에게 소개',
     approach: 'Story / Artist Interview / Art Life 3가지 시리즈로 브랜드 스토리 구축',
     result: '54개 이상의 브랜드 콘텐츠 제작',
-    image: 'https://raw.githubusercontent.com/beginus-director/website/cc3f4f002e10e9e8440088e8a49594edfa108709/yourown_img.png',
+    image: 'https://raw.githubusercontent.com/beginus-director/website/8f229e40e707630d570e978cb6bad72a37c18a88/yourown_mockup.png',
     caseStudies: [
       {
         id: 'case-01',
-        title: 'FROM ART TO PASTRY — 그림에서 케이크로',
+        title: 'FROM ART TO PASTRY',
         subtitle: 'JAEIN Patisserie',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/5a9a04403e4be3d06902859bbe717940e80999e1/case1_3.png',
         images: [
@@ -40,31 +40,8 @@ export const PROJECTS: Project[] = [
         ]
       },
       {
-        id: 'case-02',
-        title: 'BRAND COMMISSION — 브랜드를 위한 맞춤 작품',
-        subtitle: 'PEER COFFEE',
-        thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
-        images: [
-          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
-          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_2.png',
-          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_3.png',
-          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_4.png',
-          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_5.jpg'
-        ],
-        partner: 'PEER COFFEE 피어커피 | 종각점 (리뉴얼 오픈)',
-        artist: '모유진 작가',
-        type: '브랜드 차원의 작품 의뢰 (5점)',
-        overview: '개인이 아닌 브랜드가 직접 의뢰한 케이스. 스페셜티 커피 브랜드 디렉터 및 인테리어 담당 아키플로우 디렉터와 협업하여 브랜드의 이야기를 담은 5점의 작품 제작.',
-        achievements: [
-          '공간의 핵심적 인테리어 요소로 활용 (종각점)',
-          '시즌 블렌드 패키지 디자인 적용',
-          'B2B 작품 의뢰 모델 구축',
-          '시즌 블렌드 구매 고객 대상 할인권 증정'
-        ]
-      },
-      {
         id: 'case-03',
-        title: 'PERSONAL COLLECTION — 취향과 철학이 담긴 콜렉션',
+        title: 'PERSONAL COLLECTION',
         subtitle: 'Magazine C',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_1.png',
         images: [
@@ -86,7 +63,7 @@ export const PROJECTS: Project[] = [
       },
       {
         id: 'case-04',
-        title: 'FROM PERSONAL TO PUBLIC — 개인 의뢰에서 오프라인 행사로',
+        title: 'FROM PERSONAL TO PUBLIC',
         subtitle: 'Oh!Boy Magazine',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_1.png',
         images: [
@@ -105,6 +82,29 @@ export const PROJECTS: Project[] = [
           '오프라인 행사 참여: 동물 주제 작품 전시 판매',
           '현장 디지털 드로잉 (즉석 반려동물 그림 제공)',
           '패션/에디토리얼 업계 네트워크 확보'
+        ]
+      },
+      {
+        id: 'case-02',
+        title: 'BRAND COMMISSION',
+        subtitle: 'PEER COFFEE',
+        thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
+        images: [
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_2.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_3.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_4.png',
+          'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_5.jpg'
+        ],
+        partner: 'PEER COFFEE 피어커피 | 종각점 (리뉴얼 오픈)',
+        artist: '모유진 작가',
+        type: '브랜드 차원의 작품 의뢰 (5점)',
+        overview: '개인이 아닌 브랜드가 직접 의뢰한 케이스. 스페셜티 커피 브랜드 디렉터 및 인테리어 담당 아키플로우 디렉터와 협업하여 브랜드의 이야기를 담은 5점의 작품 제작.',
+        achievements: [
+          '공간의 핵심적 인테리어 요소로 활용 (종각점)',
+          '시즌 블렌드 패키지 디자인 적용',
+          'B2B 작품 의뢰 모델 구축',
+          '시즌 블렌드 구매 고객 대상 할인권 증정'
         ]
       }
     ]

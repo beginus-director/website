@@ -41,18 +41,6 @@
       }
     </script>
     <style>
-      :root {
-        /* [미세 조정 가이드] */
-        /* U가 왼쪽으로 미끄러져 들어오는 거리 (중간값 조정: -78px) */
-        --u-move-distance: -78px; 
-        /* s가 오른쪽으로 비켜나서 공간을 확보하는 거리 (확장: 50px) */
-        --s-move-distance: 50px;
-        
-        /* 전체 애니메이션 시퀀스 타이밍 (1.5초 대기 후 3초 동안 작동) */
-        --anim-delay: 1.5s;
-        --anim-duration: 3s;
-      }
-
       html {
         scroll-behavior: smooth;
       }
@@ -60,24 +48,23 @@
         background-color: #ffffff;
         color: #1a1a1a;
         overflow-x: hidden;
+        /* 기본 본문 폰트 설정 */
+        font-size: 16px;
+        line-height: 1.6;
+        letter-spacing: -0.01em;
       }
       .logo-font {
         font-family: 'Manrope', sans-serif;
         font-weight: 800;
         letter-spacing: -0.05em;
       }
-      .heading-xl {
-        font-size: clamp(3rem, 10vw, 8rem);
-        line-height: 0.9;
-        font-weight: 800;
-        letter-spacing: -0.04em;
-      }
-      .heading-lg {
-        font-size: clamp(2rem, 5vw, 4rem);
+      /* 가이드라인에 따른 제목 공통 스타일 */
+      .heading-base {
         line-height: 1.1;
+        letter-spacing: -0.04em;
         font-weight: 800;
-        letter-spacing: -0.03em;
       }
+      
       .custom-scrollbar::-webkit-scrollbar {
         width: 4px;
       }
@@ -89,55 +76,31 @@
         border-radius: 10px;
       }
 
-      /* Kinetic Typography - Refined Sequence */
-      .kinetic-title {
-        display: inline-flex;
-        align-items: center;
+      /* Refined Cross-fade Animation */
+      .fade-container {
+        position: relative;
+        display: flex;
         justify-content: center;
-        white-space: nowrap;
-        font-weight: 800;
+        align-items: center;
+        height: 1.5em;
+        width: 100%;
       }
       
-      .fade-text {
-        display: inline-block;
-        opacity: 1;
-        /* Phase 2: 대기 후 3초간 부드럽게 페이드 아웃 */
-        transition: opacity var(--anim-duration) cubic-bezier(0.2, 1, 0.3, 1) var(--anim-delay);
-      }
-      
-      .brand-part {
-        display: inline-block;
-        /* 모든 속성(transform, color, text-transform)을 3초로 동기화하여 끊김 방지 */
-        transition: all var(--anim-duration) cubic-bezier(0.2, 1, 0.3, 1) var(--anim-delay);
-        text-transform: none;
-      }
-      
-      /* .is-animated 클래스가 붙었을 때의 변화 */
-      .is-animated .fade-text {
+      .fade-item {
+        position: absolute;
         opacity: 0;
-        pointer-events: none;
+        transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: center;
+        width: 100%;
       }
-      
-      .is-animated .brand-part {
+
+      .fade-item.active {
+        opacity: 1;
+      }
+
+      .logo-fade-text {
         color: #86d0fc;
         text-transform: lowercase;
-      }
-
-      /* U와 s의 최종 안착 위치 정밀 제어 */
-      .is-animated .part-u {
-        transform: translateX(var(--u-move-distance));
-      }
-      
-      .is-animated .part-s {
-        transform: translateX(var(--s-move-distance));
-      }
-
-      /* 모바일 대응: 화면 크기에 따라 이동 거리 자동 조절 */
-      @media (max-width: 768px) {
-        :root {
-          --u-move-distance: -65px;
-          --s-move-distance: 40px;
-        }
       }
     </style>
 <script type="importmap">
