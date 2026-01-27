@@ -29,6 +29,16 @@ export interface CaseStudy {
   achievements: string[];
 }
 
+export interface ArchiveProject {
+  id: string;
+  title: string;
+  client: string;
+  period: string;
+  tags: string[];
+  image: string;
+  description: string;
+}
+
 export interface ServiceDetail {
   title: string;
   description: string;

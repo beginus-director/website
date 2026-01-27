@@ -1,5 +1,5 @@
 
-import { Project, ServiceItem } from './types';
+import { Project, ServiceItem, ArchiveProject } from './types';
 
 export const PROJECTS: Project[] = [
   {
@@ -111,6 +111,63 @@ export const PROJECTS: Project[] = [
   }
 ];
 
+export const ARCHIVE_PROJECTS: ArchiveProject[] = [
+  {
+    id: 'archive-01',
+    title: 'YOUROWN 유로운',
+    client: 'YOUROWN',
+    period: '2025.07 — 2026.01',
+    tags: ["#브랜딩", "#예술", "#라이프스타일", "#SNS마케팅"],
+    image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
+    description: ''
+  },
+  {
+    id: 'archive-02',
+    title: 'TRUSTYFOOD 트러스티푸드',
+    client: 'TRUSTYFOOD',
+    period: '2025.04 — 2025.05',
+    tags: ["#반려동물", "#F&B", "#SNS마케팅"],
+    image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_trusty.png',
+    description: ''
+  },
+  {
+    id: 'archive-03',
+    title: 'Restylane 레스틸렌',
+    client: 'Galderma Korea',
+    period: '2024 H2',
+    tags: ["#헬스케어", "#뷰티", "#SNS마케팅", "#디지털콘텐츠"],
+    image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_restylane.png',
+    description: ''
+  },
+  {
+    id: 'archive-04',
+    title: 'LG StanbyME 스탠바이미',
+    client: 'LG Electronics',
+    period: '2023.01 — 2023.05',
+    tags: ["#IT", "#라이프스타일", "#SNS마케팅", "#디지털콘텐츠"],
+    image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_lg.png',
+    description: ''
+  },
+  {
+    id: 'archive-05',
+    title: 'DOOSAN MAGAZINE 얼루어/보그/W',
+    client: 'Doosan Magazine',
+    period: '2019 — 2022',
+    tags: ["#뷰티", "#매거진", "#브랜딩", "#영상"],
+    image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_doosan.png',
+    description: ''
+  },
+  {
+    id: 'archive-06',
+    title: 'SSF SHOP 삼성물산 패션',
+    client: 'Samsung C&T Fashion',
+    period: '2017 — 2019',
+    tags: ["#패션", "#이커머스", "#디지털콘텐츠"],
+    image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_ssf.png',
+    description: ''
+  }
+];
+
 export const SERVICES: ServiceItem[] = [
   {
     title: 'Content Marketing & Branding',
@@ -138,7 +195,7 @@ export const SERVICES: ServiceItem[] = [
 ];
 
 export const SERVICE_TOOLS = [
-  'Notion', 'Figma', 'CapCut', 'ChatGPT/Claude/Gemini', 'Midjourney', 'Canva'
+  'Notion', 'Figma', 'CapCut', 'ChatGPT/Claude/Gemini', 'Midjourney', 'Canva', 'Google Analytics', 'Meta Business Suite'
 ];
 
 export const WORK_PROCESS = [
