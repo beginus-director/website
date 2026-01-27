@@ -376,7 +376,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
           </div>
 
           {/* 2. Info Grid - Editorial Style Box */}
-          <div className="bg-gray-50 p-6 md:p-8 rounded-lg mb-10">
+          <div className="bg-gray-50 p-6 md:p-8 rounded-lg mb-12">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-y-6 md:gap-x-8 lg:gap-x-12">
               <InfoItem label="Client" value={project.client} />
               <InfoItem label="Brand" value={project.brand} />
@@ -393,13 +393,72 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
             </div>
           </div>
 
-          {/* 3. Visual */}
-          <div className="w-full aspect-video bg-gray-100 rounded-lg overflow-hidden mb-12 shadow-inner">
-            <img 
-              src={project.visual} 
-              alt={project.title} 
-              className="w-full h-full object-cover"
-            />
+          {/* 3. Visual Archive Section */}
+          <div className="mb-12">
+             <h3 className="text-[12px] font-black uppercase tracking-widest text-morningSky mb-6">Visual Archive</h3>
+             
+             {project.media && project.media.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {project.media.map((item, idx) => {
+                    // Logic to span full width if it's the last item and we have an odd number of items to make it look balanced
+                    const isLastAndOdd = idx === project.media!.length - 1 && project.media!.length % 2 !== 0;
+                    const spanClass = isLastAndOdd ? "md:col-span-2" : "";
+
+                    return (
+                      <div key={idx} className={`relative rounded-lg overflow-hidden h-64 md:h-80 w-full ${spanClass}`}>
+                        {item.type === 'video' && (
+                          <iframe 
+                            src={item.url} 
+                            className="w-full h-full object-cover" 
+                            title={`Project Video ${idx + 1}`}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowFullScreen
+                          />
+                        )}
+                        {item.type === 'image' && (
+                           <img 
+                              src={item.url} 
+                              alt={`Project Visual ${idx + 1}`} 
+                              className="w-full h-full object-cover cursor-zoom-in hover:scale-105 transition-transform duration-700"
+                              onClick={() => window.open(item.url, '_blank')}
+                           />
+                        )}
+                        {item.type === 'link' && (
+                           <a 
+                              href={item.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="group block w-full h-full relative"
+                           >
+                              {item.thumb && (
+                                <img 
+                                   src={item.thumb} 
+                                   alt="Link Thumbnail" 
+                                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
+                              )}
+                              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex flex-col items-center justify-center text-white">
+                                 <div className="flex items-center space-x-2 border-b border-white/30 pb-1 mb-2">
+                                    <span className="text-lg font-bold">Read Article</span>
+                                    <ArrowUpRight size={20} />
+                                 </div>
+                              </div>
+                           </a>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+             ) : (
+                // Fallback to legacy single visual
+                <div className="w-full aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                  <img 
+                    src={project.visual} 
+                    alt={project.title} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+             )}
           </div>
 
           {/* 4. Content Body */}

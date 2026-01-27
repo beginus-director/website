@@ -29,6 +29,12 @@ export interface CaseStudy {
   achievements: string[];
 }
 
+export interface ArchiveMedia {
+  type: 'video' | 'image' | 'link';
+  url: string;
+  thumb?: string;
+}
+
 export interface ArchiveProject {
   id: string;
   title: string;
@@ -40,8 +46,9 @@ export interface ArchiveProject {
   period: string;
   tags: string[];
   image: string; // Thumbnail
-  visual: string; // Detailed Visual
-  description?: string; // Legacy support or short summary
+  visual: string; // Legacy Detailed Visual (fallback)
+  media?: ArchiveMedia[]; // New Visual Archive Grid
+  description?: string; 
   challenge: string;
   solution: string[];
   result: string[];

@@ -124,6 +124,25 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     tags: ["#브랜딩", "#예술", "#라이프스타일", "#SNS마케팅"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
+    media: [
+      { 
+        type: 'video', 
+        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' 
+      },
+      { 
+        type: 'image', 
+        url: 'https://raw.githubusercontent.com/beginus-director/website/8f229e40e707630d570e978cb6bad72a37c18a88/yourown_mockup.png'
+      },
+      { 
+        type: 'image', 
+        url: 'https://raw.githubusercontent.com/beginus-director/website/5a9a04403e4be3d06902859bbe717940e80999e1/case1_3.png'
+      },
+      { 
+        type: 'link', 
+        url: 'https://blog.naver.com/', 
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png'
+      }
+    ],
     challenge: "'미술 작품 의뢰'라는 새로운 영역을 대중에게 소개하고, 브랜드만의 고유한 정체성을 구축할 콘텐츠 전략이 필요했습니다.",
     solution: [
       "3가지 콘텐츠 시리즈 기획: Story (의뢰자 에피소드), Artist Interview (작가 철학), Art Life (의뢰 가이드)",
