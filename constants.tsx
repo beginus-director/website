@@ -125,22 +125,25 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
     media: [
-      { 
-        type: 'video', 
-        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ' 
+      {
+        type: 'link',
+        url: 'https://www.instagram.com/p/DTuqNB8k32y/',
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v01.png'
       },
-      { 
-        type: 'image', 
-        url: 'https://raw.githubusercontent.com/beginus-director/website/8f229e40e707630d570e978cb6bad72a37c18a88/yourown_mockup.png'
+      {
+        type: 'link',
+        url: 'https://yourown.ghost.io/story-10-yorisa-jaeryoyi-sancaeg-jeoja-yona/',
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v02.png'
       },
-      { 
-        type: 'image', 
-        url: 'https://raw.githubusercontent.com/beginus-director/website/5a9a04403e4be3d06902859bbe717940e80999e1/case1_3.png'
+      {
+        type: 'link',
+        url: 'https://www.instagram.com/p/DMK2IMLTkmv/?img_index=1',
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v03.png'
       },
-      { 
-        type: 'link', 
-        url: 'https://blog.naver.com/', 
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png'
+      {
+        type: 'link',
+        url: 'https://www.instagram.com/p/DNp2zjNzx3M/?img_index=1',
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v04.png'
       }
     ],
     challenge: "'미술 작품 의뢰'라는 새로운 영역을 대중에게 소개하고, 브랜드만의 고유한 정체성을 구축할 콘텐츠 전략이 필요했습니다.",

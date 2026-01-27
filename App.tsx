@@ -439,7 +439,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                               )}
                               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex flex-col items-center justify-center text-white">
                                  <div className="flex items-center space-x-2 border-b border-white/30 pb-1 mb-2">
-                                    <span className="text-lg font-bold">Read Article</span>
+                                    <span className="text-lg font-bold">View Original</span>
                                     <ArrowUpRight size={20} />
                                  </div>
                               </div>
