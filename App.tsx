@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Instagram, Mail, Phone, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
 import { PROJECTS, SERVICES, WORK_PROCESS, SERVICE_TOOLS, ARCHIVE_PROJECTS } from './constants';
-import { CaseStudy, ArchiveProject } from './types';
+import { CaseStudy, ArchiveProject, Project } from './types';
 import Logo from './Logo';
 
 const CustomCursor = () => {
@@ -43,7 +43,7 @@ const CustomCursor = () => {
 
   return (
     <div 
-      className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] transition-all duration-300 ease-out ${isHidden ? 'opacity-0' : 'opacity-100'}`}
+      className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] transition-all duration-75 ease-out ${isHidden ? 'opacity-0' : 'opacity-100'}`}
       style={{ 
         width: `${cursorSize}px`,
         height: `${cursorSize}px`,
@@ -59,8 +59,14 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
   
   const handleLinkClick = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
-    onScroll(id);
     setIsOpen(false);
+    // Explicitly unlock scroll immediately to prevent sticking
+    document.body.style.overflow = 'unset';
+
+    // Delay scroll slightly to allow menu to close and DOM to update
+    setTimeout(() => {
+      onScroll(id);
+    }, 100);
   };
 
   useEffect(() => {
@@ -87,7 +93,7 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
           <a href="#" onClick={(e) => handleLinkClick(e, 'about')} className="hover:text-morningSky transition-colors">About</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'work')} className="hover:text-morningSky transition-colors">Work</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'service')} className="hover:text-morningSky transition-colors">Service</a>
-          <a href="#" onClick={(e) => handleLinkClick(e, 'method')} className="hover:text-morningSky transition-colors">Method</a>
+          <a href="#" onClick={(e) => handleLinkClick(e, 'archive')} className="hover:text-morningSky transition-colors">Archive</a>
           <a href="#" onClick={(e) => handleLinkClick(e, 'contact')} className="hover:text-morningSky transition-colors">Contact</a>
         </div>
 
@@ -122,7 +128,7 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
 
         {/* Links Area */}
         <div className="flex-grow flex flex-col items-center justify-center space-y-8">
-          {['home', 'about', 'work', 'service', 'method', 'contact'].map((item) => (
+          {['home', 'about', 'work', 'service', 'archive', 'contact'].map((item) => (
             <a 
               key={item}
               href={`#${item === 'home' ? 'hero' : item}`} 
@@ -216,10 +222,16 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-brandBlack/90 backdrop-blur-md" onClick={onClose}></div>
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <div className="absolute inset-0 bg-brandBlack/90 backdrop-blur-md"></div>
       
-      <div className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-none shadow-2xl overflow-hidden animate-fade-in flex flex-col lg:flex-row">
+      <div 
+        className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-none shadow-2xl overflow-hidden animate-fade-in flex flex-col lg:flex-row"
+        onClick={(e) => e.stopPropagation()}
+      >
         
         {/* Floating Close Button */}
         <button 
@@ -341,7 +353,10 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
   );
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 bg-brandBlack/50 backdrop-blur-sm">
+    <div 
+      className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 bg-brandBlack/50 backdrop-blur-sm"
+      onClick={onClose}
+    >
       <div 
         className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-4xl bg-white shadow-2xl overflow-y-auto animate-fade-in flex flex-col md:rounded-none"
         onClick={(e) => e.stopPropagation()}
@@ -400,12 +415,8 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
              {project.media && project.media.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {project.media.map((item, idx) => {
-                    // Logic to span full width if it's the last item and we have an odd number of items to make it look balanced
-                    const isLastAndOdd = idx === project.media!.length - 1 && project.media!.length % 2 !== 0;
-                    const spanClass = isLastAndOdd ? "md:col-span-2" : "";
-
                     return (
-                      <div key={idx} className={`relative rounded-lg overflow-hidden h-64 md:h-80 w-full ${spanClass}`}>
+                      <div key={idx} className="relative rounded-lg overflow-hidden h-64 md:h-80 w-full group">
                         {item.type === 'video' && (
                           <iframe 
                             src={item.url} 
@@ -428,7 +439,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                               href={item.url} 
                               target="_blank" 
                               rel="noopener noreferrer"
-                              className="group block w-full h-full relative"
+                              className="block w-full h-full relative"
                            >
                               {item.thumb && (
                                 <img 
@@ -437,10 +448,11 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                               )}
-                              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors flex flex-col items-center justify-center text-white">
-                                 <div className="flex items-center space-x-2 border-b border-white/30 pb-1 mb-2">
-                                    <span className="text-lg font-bold">View Original</span>
-                                    <ArrowUpRight size={20} />
+                              {/* Overlay Link */}
+                              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
+                                 <div className="flex items-center space-x-1 border-b border-brandIvory/70 pb-1 text-brandIvory hover:opacity-80 transition-opacity">
+                                    <span className="text-sm md:text-base font-bold">View Original</span>
+                                    <ArrowUpRight size={18} />
                                  </div>
                               </div>
                            </a>
@@ -523,6 +535,21 @@ const App: React.FC = () => {
     }
   };
 
+  const handleNavigation = (id: string) => {
+    if (id === 'archive') {
+      setCurrentPage('archive');
+      window.scrollTo(0, 0);
+    } else {
+      if (currentPage === 'archive') {
+        setCurrentPage('home');
+        // Allow render to happen before scrolling
+        setTimeout(() => scrollToSection(id), 0);
+      } else {
+        scrollToSection(id);
+      }
+    }
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setShowLogo((prev) => !prev);
@@ -536,7 +563,7 @@ const App: React.FC = () => {
       
       {currentPage === 'home' ? (
         <>
-          <Navbar onScroll={scrollToSection} />
+          <Navbar onScroll={handleNavigation} />
 
           {selectedCase && <CaseStudyModal caseStudy={selectedCase.case} index={selectedCase.index} onClose={() => setSelectedCase(null)} />}
 
@@ -556,7 +583,7 @@ const App: React.FC = () => {
                 <a 
                   href="javascript:void(0)" 
                   onClick={() => scrollToSection('work')}
-                  className="inline-flex items-center justify-center h-16 px-10 rounded-full bg-brandBlack text-white hover:bg-white hover:text-brandBlack transition-all border border-brandBlack group flex-shrink-0 font-bold mt-8 md:mt-0"
+                  className="inline-flex items-center justify-center rounded-full bg-brandBlack text-brandIvory hover:bg-brandIvory hover:text-brandBlack transition-colors duration-300 border border-brandBlack group flex-shrink-0 font-bold py-3 px-8 text-sm md:text-base mt-8 md:mt-0"
                 >
                   View Case Study <ArrowRight className="ml-3 group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -587,18 +614,18 @@ const App: React.FC = () => {
           </div>
 
           {/* About Section */}
-          <section id="about" className="py-16 md:py-32 bg-beginningIvory border-b border-gray-100">
+          <section id="about" className="py-16 md:py-32 bg-beginningIvory border-b border-gray-100 scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-              <h2 className="text-[32px] md:text-5xl lg:text-6xl font-extrabold mb-12 md:mb-16 leading-[1.1] tracking-[-0.04em] text-brandBlack max-w-5xl break-keep">
+              <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 leading-tight tracking-[-0.02em] text-brandBlack max-w-5xl break-keep">
                 매거진의 감도 <span className="text-morningSky inline-block mx-0.5 md:mx-1">×</span> UX의 논리 <span className="text-morningSky inline-block mx-0.5 md:mx-1">×</span> 광고의 성과
               </h2>
-              <div className="max-w-3xl space-y-8 md:space-y-12">
-                <p className="text-[20px] md:text-[24px] font-bold text-gray-800 leading-[1.4] tracking-[-0.02em] break-keep">
+              <div className="max-w-3xl space-y-6 md:space-y-8">
+                <p className="text-base md:text-lg font-medium text-gray-800 leading-relaxed break-keep">
                   스튜디오 비기너스는 <br />
                   콘텐츠 중심의 기획과 실행을 전문으로 하는 <br className="hidden md:block" />
                   크리에이티브 에이전시입니다.
                 </p>
-                <p className="text-[16px] md:text-[18px] text-gray-600 leading-[1.6] tracking-[-0.01em] font-medium break-keep">
+                <p className="text-base md:text-lg text-gray-600 leading-relaxed font-normal break-keep">
                   트렌드를 포착하되 고유한 시선으로 재해석하고, <br className="hidden md:block" />
                   함께 성장하며 브랜드 경험을 만들어갑니다.
                 </p>
@@ -607,7 +634,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Director Section */}
-          <section id="director" className="py-16 md:py-32 bg-white">
+          <section id="director" className="py-16 md:py-32 bg-white scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 grid md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_280px] gap-12 md:gap-24 items-start">
               <div className="order-2 md:order-1">
                 <SectionHeader 
@@ -621,17 +648,17 @@ const App: React.FC = () => {
                 />
                 <div className="space-y-12">
                   <div>
-                    <h4 className="text-[10px] font-bold uppercase tracking-widest mb-4 text-morningSky">PROFILE</h4>
-                    <h3 className="text-[32px] md:text-[40px] font-extrabold mb-2 leading-[1.1] tracking-[-0.03em] break-keep">이지영 LEE JIYOUNG</h3>
-                    <p className="text-[18px] text-gray-500 italic mb-6 break-keep">Content Director</p>
-                    <p className="text-[16px] md:text-[18px] text-gray-700 leading-[1.6] tracking-[-0.01em] font-medium max-w-2xl break-keep">
+                    <h4 className="text-[14px] font-extrabold text-morningSky uppercase tracking-wider mb-4">PROFILE</h4>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-2 leading-tight tracking-[-0.02em] break-keep">이지영 LEE JIYOUNG</h3>
+                    <p className="text-lg md:text-xl text-gray-500 font-medium mb-6 break-keep">Content Director</p>
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed font-normal max-w-2xl break-keep">
                       플랫폼 및 스타트업 환경에서 브랜드 성장 경험을 보유하고 있으며, 데이터 기반 캠페인부터 고객 여정 최적화까지 브랜드 경험을 통합적으로 디자인합니다.
                     </p>
                   </div>
                   
                   <div className="space-y-16 pt-8">
                     <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-widest mb-10 text-morningSky">주요 경력</h4>
+                      <h4 className="text-[14px] font-extrabold text-morningSky uppercase tracking-wider mb-6">주요 경력</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
                         <div>
                           <h5 className="text-[16px] font-bold mb-4 border-b border-gray-100 pb-2 break-keep">디지털 마케팅</h5>
@@ -682,7 +709,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Work Section */}
-          <section id="work" className="py-16 md:py-32 bg-brandBlack">
+          <section id="work" className="py-16 md:py-32 bg-brandBlack scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <SectionHeader 
                 title="The Work." 
@@ -794,7 +821,7 @@ const App: React.FC = () => {
                     setCurrentPage('archive');
                     window.scrollTo(0, 0);
                   }}
-                  className="group flex items-center px-8 py-4 rounded-full border border-morningSky text-morningSky hover:bg-morningSky hover:text-brandBlack transition-all duration-300 font-bold text-lg"
+                  className="group flex items-center rounded-full bg-brandBlack text-brandIvory hover:bg-brandIvory hover:text-brandBlack transition-colors duration-300 border border-brandIvory font-bold py-3 px-8 text-sm md:text-base"
                 >
                   View Archive <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -803,7 +830,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Service Section */}
-          <section id="service" className="py-16 md:py-32 bg-white">
+          <section id="service" className="py-16 md:py-32 bg-white scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <SectionHeader 
                 title="The Service." 
@@ -867,7 +894,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Method Section */}
-          <section id="method" className="py-16 md:py-32 bg-beginningIvory text-brandBlack border-t border-brandBlack">
+          <section id="method" className="py-16 md:py-32 bg-beginningIvory text-brandBlack border-t border-brandBlack scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <div className="mb-12 md:mb-20">
                 <h2 className="text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] mb-6 break-keep">The Method.</h2>
@@ -893,7 +920,7 @@ const App: React.FC = () => {
           </section>
 
           {/* Contact Section */}
-          <section id="contact" className="py-16 md:py-32 bg-beginningIvory overflow-hidden">
+          <section id="contact" className="py-16 md:py-32 bg-beginningIvory overflow-hidden scroll-mt-24">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
               <div className="mb-12 h-32 md:h-40 flex items-center justify-center relative">
                 {/* Text */}
@@ -912,11 +939,11 @@ const App: React.FC = () => {
                   새로운 브랜드 스토리, 스튜디오 비기너스와 함께 시작해보세요.
                 </p>
                 <div className="flex flex-wrap justify-center gap-6 mt-8">
-                  <a href="mailto:hello@studiobeginus.com" className="flex items-center bg-brandBlack text-white px-8 py-4 rounded-full font-bold hover:bg-morningSky transition-colors break-keep">
-                    <Mail className="mr-3" /> hello@studiobeginus.com
+                  <a href="mailto:hello@studiobeginus.com" className="flex items-center bg-brandBlack text-brandIvory px-5 py-2 md:px-8 md:py-3 rounded-full font-bold hover:bg-brandIvory hover:text-brandBlack transition-colors duration-300 border border-brandBlack text-sm md:text-base break-keep">
+                    <Mail className="mr-3 w-4 h-4 md:w-5 md:h-5" /> hello@studiobeginus.com
                   </a>
-                  <a href="tel:+821066897073" className="flex items-center bg-white border border-gray-200 px-8 py-4 rounded-full font-bold hover:border-morningSky transition-colors break-keep">
-                    <Phone className="mr-3" /> +82 10-6689-7073
+                  <a href="tel:+821066897073" className="flex items-center bg-white border border-gray-200 text-brandBlack px-5 py-2 md:px-8 md:py-3 rounded-full font-bold hover:border-morningSky transition-colors text-sm md:text-base break-keep">
+                    <Phone className="mr-3 w-4 h-4 md:w-5 md:h-5" /> +82 10-6689-7073
                   </a>
                 </div>
                 <div className="flex space-x-6 pt-12">
@@ -951,7 +978,7 @@ const App: React.FC = () => {
           </nav>
 
           {/* Archive Content */}
-          <div className="pt-32 pb-20">
+          <div id="archive" className="pt-32 pb-20">
              {/* Title */}
              <div className="max-w-7xl mx-auto px-6 lg:px-8 mb-16">
                 <h1 className="text-[44px] md:text-[80px] font-extrabold leading-[1.1] tracking-[-0.04em] text-brandBlack">The Archive.</h1>

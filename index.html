@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,11 +14,18 @@
         theme: {
           extend: {
             colors: {
+              // Brand Palette - Updated
+              brandMorningSky: '#86d0fc',
+              brandIvory: '#f9f8e5',
+              brandBlack: '#111111',
+              brandGreen: '#869969',
+              
+              // Alias for backward compatibility (mapped to new palette where applicable)
               morningSky: '#86d0fc',
               earlySky: '#c5e5ff',
               beginningIvory: '#f9f8e5',
               seedGreen: '#869969',
-              brandBlack: '#1a1a1a',
+              // Note: Previous brandBlack was #1a1a1a, now using #111111
             },
             fontFamily: {
               sans: ['Manrope', 'Inter', 'Pretendard', 'SUIT', 'sans-serif'],
@@ -46,7 +54,7 @@
       }
       body {
         background-color: #ffffff;
-        color: #1a1a1a;
+        color: #111111;
         overflow-x: hidden;
         /* 기본 본문 폰트 설정 */
         font-size: 16px;
