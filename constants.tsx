@@ -115,56 +115,146 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
   {
     id: 'archive-01',
     title: 'YOUROWN 유로운',
-    client: 'YOUROWN',
+    tagline: '미술 작품 의뢰 서비스 브랜드 콘텐츠 전략 및 제작 총괄',
+    client: 'BGA 백그라운드아트웍스',
+    brand: 'YOUROWN 유로운',
+    product: '미술 작품 의뢰 서비스',
+    role: '콘텐츠 디렉팅 및 제작 총괄',
     period: '2025.07 — 2026.01',
     tags: ["#브랜딩", "#예술", "#라이프스타일", "#SNS마케팅"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
-    description: ''
+    visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
+    challenge: "'미술 작품 의뢰'라는 새로운 영역을 대중에게 소개하고, 브랜드만의 고유한 정체성을 구축할 콘텐츠 전략이 필요했습니다.",
+    solution: [
+      "3가지 콘텐츠 시리즈 기획: Story (의뢰자 에피소드), Artist Interview (작가 철학), Art Life (의뢰 가이드)",
+      "Instagram, Blog, 오프라인 이벤트를 아우르는 통합 콘텐츠 전략 수립",
+      "54개 이상의 브랜드 콘텐츠 제작 및 소셜 미디어 운영"
+    ],
+    result: [
+      "Story 8편, Artist Interview 3편, Art Life 6편 등 총 54개 이상의 브랜드 콘텐츠 제작",
+      "통합 콘텐츠 전략을 통한 브랜드 정체성 확립",
+      "미술 작품 의뢰 시장 내 브랜드 인지도 구축"
+    ]
   },
   {
     id: 'archive-02',
     title: 'TRUSTYFOOD 트러스티푸드',
-    client: 'TRUSTYFOOD',
+    tagline: '릴스 중심 SNS 콘텐츠 기획 및 운영',
+    client: '(주)림피드',
+    brand: 'TRUSTYFOOD 트러스티푸드',
+    product: '반려동물 사료',
+    role: '프리랜서 마케터 (SNS 콘텐츠 기획/운영)',
     period: '2025.04 — 2025.05',
     tags: ["#반려동물", "#F&B", "#SNS마케팅"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_trusty.png',
-    description: ''
+    visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_trusty.png',
+    challenge: '반려동물 사료 브랜드의 인지도 제고와 고객 참여를 이끌어낼 릴스 중심의 숏폼 콘텐츠 전략이 필요했습니다.',
+    solution: [
+      "'트푸터뷰' 시리즈 등 릴스 콘텐츠 기획 및 제작 (인터뷰 형식의 숏폼 콘텐츠)",
+      "Instagram 릴스 중심의 브랜드 스토리텔링 및 제품 소개 콘텐츠 제작",
+      "고객 인터뷰 및 사용 후기 기반의 진정성 있는 콘텐츠 구성"
+    ],
+    result: [
+      "릴스 중심 SNS 콘텐츠 전략을 통한 브랜드 인지도 제고",
+      "'트푸터뷰' 시리즈를 통한 고객 참여 및 커뮤니티 형성",
+      "숏폼 콘텐츠 기획 및 제작 역량 강화"
+    ]
   },
   {
     id: 'archive-03',
     title: 'Restylane 레스틸렌',
-    client: 'Galderma Korea',
+    tagline: '의료기기 브랜드를 위한 AI 사운드 & 릴스 챌린지 캠페인',
+    client: 'Galderma Korea 갈더마코리아',
+    brand: 'Restylane 레스틸렌',
+    product: '프리미엄 HA 필러',
+    role: '캠페인 총괄 기획 및 전략 디렉팅 (Nexpaper M&C 재직 당시)',
     period: '2024 H2',
     tags: ["#헬스케어", "#뷰티", "#SNS마케팅", "#디지털콘텐츠"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_restylane.png',
-    description: ''
+    visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_restylane.png',
+    challenge: '의료기기 광고 심의 규제로 인해 제품의 핵심 차별점(눈밑 필러)을 직접 언급하거나 효능을 구체적으로 표현할 수 없는 상황. 정보 전달 위주의 딱딱한 기존 방식을 벗어나, 타겟에게 브랜드를 직관적이고 효과적으로 각인시킬 새로운 커뮤니케이션 전략이 필요했습니다.',
+    solution: [
+      "AI 사운드 기획 (Suno.com 활용): 제품 무드를 청각화한 오리지널 브랜드 사운드 제작",
+      "포인트 안무 개발 및 영상 제작: 제품명을 직관적으로 형상화한 비언어적 메시지 시각화",
+      "릴스 챌린지 & B2B 오프라인 행사: 피부과 전문의 등 의료 전문가를 대상으로 한 오프라인 이벤트에서 활용하여 전문가층 참여를 유도하고 온오프라인 통합 경험 설계"
+    ],
+    result: [
+      "클라이언트 내부에서 높은 만족도 확보 및 마케팅 성과에 대한 신뢰 구축",
+      "갈더마 본사 및 여러 글로벌 마케팅 지사로부터 프로세스 벤치마킹 문의",
+      "보수적 제약 산업 내 AI 기술을 선제 도입한 마케팅 사례 구축"
+    ]
   },
   {
     id: 'archive-04',
     title: 'LG StanbyME 스탠바이미',
-    client: 'LG Electronics',
+    tagline: '글로벌 크리에이티브 라이프스타일 콘텐츠 기획 및 총괄 디렉팅',
+    client: 'LG Electronics LG전자',
+    brand: 'LG StanbyME 스탠바이미',
+    product: '무선 이동형 스크린',
+    role: 'SNS 콘텐츠 디렉팅 및 해외 크리에이터 콘텐츠 제작 총괄 (뉴이미지클럽 재직 당시)',
     period: '2023.01 — 2023.05',
     tags: ["#IT", "#라이프스타일", "#SNS마케팅", "#디지털콘텐츠"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_lg.png',
-    description: ''
+    visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_lg.png',
+    challenge: '글로벌 시장에서 현지 유저들의 다양한 라이프스타일에 자연스럽게 녹아드는 고감도 비주얼 소스 확보가 필요했습니다. 국내 중심 마케팅 문법을 탈피하여 해외 시장에서도 선호될 수 있는 진정성 있는 브랜드 내러티브 구축이 과제였습니다.',
+    solution: [
+      "해외 크리에이터 3인 섭외 및 맞춤형 라이프스타일 테마 설정",
+      "해외 현지 로케이션 촬영 총괄 디렉팅 (비주얼 무드, 스토리보드, 인터뷰 가이드라인 수립)",
+      "글로벌 소셜 채널 활용 가능한 고퀄리티 콘텐츠 라이브러리 구축"
+    ],
+    result: [
+      "각 시장별 특성에 최적화된 고감도 브랜드 비주얼 에셋 확보",
+      "진정성 있는 콘텐츠를 통한 브랜드 신뢰도 및 친밀도 제고",
+      "총괄 디렉팅 체계를 통한 글로벌 촬영 퀄리티 컨트롤 및 일관된 브랜드 메시지 유지"
+    ]
   },
   {
     id: 'archive-05',
-    title: 'DOOSAN MAGAZINE 얼루어/보그/W',
-    client: 'Doosan Magazine',
+    title: 'DOOSAN MAGAZINE',
+    tagline: '얼루어/보그/W 프리랜스 에디터',
+    client: 'Doosan Magazine 두산매거진',
+    brand: 'ALLURE Korea, VOGUE Korea, W Korea',
+    product: '뷰티·패션 매거진 (온·오프라인)',
+    role: '프리랜스 에디터 / 컨트리뷰팅 에디터',
     period: '2019 — 2022',
-    tags: ["#뷰티", "#매거진", "#브랜딩", "#영상"],
+    tags: ["#뷰티", "#라이프스타일", "#매거진", "#에디토리얼"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_doosan.png',
-    description: ''
+    visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_doosan.png',
+    challenge: '뷰티 및 패션 매거진의 지면, 웹, SNS를 아우르는 통합 콘텐츠 제작과 브랜드 협업 애드버토리얼 기획이 필요했습니다.',
+    solution: [
+      "월별 특집 기사 및 크리에이터 튜토리얼 영상 기획 및 제작",
+      "Editor's Pick/리뷰 지면·웹·SNS 통합 콘텐츠 제작",
+      "ALLURE 코리아 애드버토리얼 기획/제작 및 그린얼루어 현장 취재"
+    ],
+    result: [
+      "3개 주요 패션 매거진에서 다양한 에디토리얼 콘텐츠 제작",
+      "브랜디드 콘텐츠 기획 및 제작 경험 축적",
+      "지면-웹-SNS 통합 콘텐츠 전략 수립 역량 강화"
+    ]
   },
   {
     id: 'archive-06',
     title: 'SSF SHOP 삼성물산 패션',
-    client: 'Samsung C&T Fashion',
+    tagline: '온라인 프로모션 기획 및 운영',
+    client: 'Samsung C&T Fashion 삼성물산 패션부문',
+    brand: 'SSF SHOP',
+    product: '온라인 패션 편집샵 플랫폼',
+    role: '대리, 온라인 프로모션팀',
     period: '2017 — 2019',
     tags: ["#패션", "#이커머스", "#디지털콘텐츠"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_ssf.png',
-    description: ''
+    visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_ssf.png',
+    challenge: '온라인 편집샵의 프로모션 기획 및 브랜드 콘텐츠 제작을 통한 고객 참여 유도 및 매출 증대가 필요했습니다.',
+    solution: [
+      "온라인 프로모션 기획 및 실행 (시즌별 캠페인, 이벤트 등)",
+      "브랜드 콜라보레이션 및 마케팅 콘텐츠 제작",
+      "데이터 기반 프로모션 성과 분석 및 최적화"
+    ],
+    result: [
+      "다수의 온라인 프로모션 기획 및 성공적 실행",
+      "브랜드 협업 프로젝트를 통한 고객 참여율 증대",
+      "온라인 커머스 마케팅 실무 경험 및 데이터 분석 역량 구축"
+    ]
   }
 ];
 

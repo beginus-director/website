@@ -32,11 +32,19 @@ export interface CaseStudy {
 export interface ArchiveProject {
   id: string;
   title: string;
+  tagline: string;
   client: string;
+  brand: string;
+  product: string;
+  role: string;
   period: string;
   tags: string[];
-  image: string;
-  description: string;
+  image: string; // Thumbnail
+  visual: string; // Detailed Visual
+  description?: string; // Legacy support or short summary
+  challenge: string;
+  solution: string[];
+  result: string[];
 }
 
 export interface ServiceDetail {

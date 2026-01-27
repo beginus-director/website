@@ -333,56 +333,109 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
     return () => { document.body.style.overflow = 'unset'; };
   }, []);
 
+  const InfoItem = ({ label, value }: { label: string; value: string }) => (
+    <div className="flex flex-col">
+      <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1.5">{label}</span>
+      <span className="text-[15px] font-bold text-brandBlack break-keep leading-tight">{value}</span>
+    </div>
+  );
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-brandBlack/90 backdrop-blur-md" onClick={onClose}></div>
-      
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white rounded-none shadow-2xl overflow-y-auto animate-fade-in flex flex-col md:flex-row">
-        {/* Close Button */}
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-4 bg-brandBlack/50 backdrop-blur-sm">
+      <div 
+        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-4xl bg-white shadow-2xl overflow-y-auto animate-fade-in flex flex-col md:rounded-none"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Fixed Close Button */}
         <button 
           onClick={onClose} 
-          className="absolute top-5 right-5 z-[120] p-2 bg-brandBlack/10 hover:bg-brandBlack text-brandBlack hover:text-white rounded-none transition-all duration-300"
+          className="fixed md:absolute top-0 right-0 z-[120] p-5 md:p-6 text-brandBlack hover:text-morningSky transition-colors bg-white/80 backdrop-blur-sm md:bg-transparent"
           aria-label="Close modal"
         >
-          <X size={24} />
+          <X size={28} strokeWidth={1.5} />
         </button>
 
-        {/* Left: Image */}
-        <div className="w-full md:w-1/2 bg-gray-100 aspect-square md:aspect-auto">
-          <img 
-            src={project.image} 
-            alt={project.title} 
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <div className="p-6 md:p-12 pb-20 md:pb-12">
+          {/* 1. Header */}
+          <div className="mb-10 max-w-2xl pt-8 md:pt-0">
+            <h2 className="text-[28px] md:text-[40px] font-extrabold leading-[1.1] tracking-[-0.03em] mb-3 text-brandBlack break-keep">
+              {project.title}
+            </h2>
+            {project.tagline && (
+              <p className="text-[16px] md:text-[18px] text-gray-600 font-medium leading-relaxed tracking-[-0.01em] mb-5 break-keep">
+                {project.tagline}
+              </p>
+            )}
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag, idx) => (
+                <span key={idx} className="px-3 py-1 bg-gray-100 text-brandBlack text-[12px] font-bold rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
 
-        {/* Right: Info */}
-        <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-3xl font-extrabold text-brandBlack mb-2">{project.title}</h2>
-              <div className="flex flex-wrap gap-2 text-sm text-gray-500 font-medium">
-                {project.tags.map((tag, idx) => (
-                  <span key={idx}>{tag}</span>
-                ))}
+          {/* 2. Info Grid - Editorial Style Box */}
+          <div className="bg-gray-50 p-6 md:p-8 rounded-lg mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-6 md:gap-x-8 lg:gap-x-12">
+              <InfoItem label="Client" value={project.client} />
+              <InfoItem label="Brand" value={project.brand} />
+              <InfoItem label="Product" value={project.product} />
+              <div className="md:col-span-1">
+                 <InfoItem label="Role" value={project.role} />
+              </div>
+              <div className="md:col-span-4 border-t border-gray-200 pt-6 mt-2">
+                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">Period</span>
+                    <span className="text-[14px] font-bold text-brandBlack">{project.period}</span>
+                 </div>
               </div>
             </div>
+          </div>
 
-            <div className="space-y-4 pt-4 border-t border-gray-100">
-              <div>
-                <h4 className="text-xs font-black uppercase tracking-widest text-morningSky mb-1">Client</h4>
-                <p className="text-lg font-bold text-brandBlack">{project.client}</p>
-              </div>
-              <div>
-                <h4 className="text-xs font-black uppercase tracking-widest text-morningSky mb-1">Period</h4>
-                <p className="text-lg font-medium text-gray-700">{project.period}</p>
-              </div>
-              {project.description && (
-                 <div>
-                  <h4 className="text-xs font-black uppercase tracking-widest text-morningSky mb-1">Description</h4>
-                  <p className="text-base text-gray-600 leading-relaxed">{project.description}</p>
-                 </div>
-              )}
+          {/* 3. Visual */}
+          <div className="w-full aspect-video bg-gray-100 rounded-lg overflow-hidden mb-12 shadow-inner">
+            <img 
+              src={project.visual} 
+              alt={project.title} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* 4. Content Body */}
+          <div className="max-w-3xl space-y-12">
+            {/* Challenge */}
+            <div className="border-l-4 border-morningSky pl-6 py-1">
+              <h3 className="text-[12px] font-black uppercase tracking-widest text-morningSky mb-3">The Challenge</h3>
+              <p className="text-[18px] md:text-[20px] font-medium text-brandBlack italic leading-[1.6] break-keep">
+                "{project.challenge}"
+              </p>
+            </div>
+
+            {/* Solution */}
+            <div>
+              <h3 className="text-[20px] md:text-[24px] font-extrabold text-brandBlack mb-4">Solution</h3>
+              <ul className="space-y-3">
+                {project.solution.map((item, idx) => (
+                  <li key={idx} className="flex items-start text-[16px] text-gray-700 leading-relaxed break-keep">
+                    <span className="mr-3 mt-2 w-1.5 h-1.5 bg-brandBlack rounded-full flex-shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Result */}
+            <div>
+              <h3 className="text-[20px] md:text-[24px] font-extrabold text-brandBlack mb-4">Key Results</h3>
+              <ul className="space-y-3">
+                {project.result.map((item, idx) => (
+                  <li key={idx} className="flex items-start text-[16px] text-gray-700 leading-relaxed break-keep">
+                     <span className="mr-3 mt-2 w-1.5 h-1.5 bg-morningSky rounded-full flex-shrink-0"></span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
