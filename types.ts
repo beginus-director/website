@@ -12,6 +12,7 @@ export interface Project {
   result?: string;
   description?: string;
   image: string;
+  imageAlt?: string; // Added for SEO
   link?: string;
   caseStudies?: CaseStudy[];
 }
@@ -21,6 +22,7 @@ export interface CaseStudy {
   title: string;
   subtitle: string;
   thumbnail: string;
+  thumbnailAlt?: string; // Added for SEO
   images: string[];
   partner: string;
   artist: string;
@@ -33,6 +35,7 @@ export interface ArchiveMedia {
   type: 'video' | 'image' | 'link';
   url: string;
   thumb?: string;
+  alt?: string; // Added for SEO
 }
 
 export interface ArchiveProject {
@@ -46,6 +49,7 @@ export interface ArchiveProject {
   period: string;
   tags: string[];
   image: string; // Thumbnail
+  imageAlt?: string; // Added for SEO
   visual: string; // Legacy Detailed Visual (fallback)
   media?: ArchiveMedia[]; // New Visual Archive Grid
   description?: string; 

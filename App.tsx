@@ -252,7 +252,7 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
               <img 
                 key={i}
                 src={img} 
-                alt={`${caseStudy.title} - ${i + 1}`} 
+                alt={caseStudy.thumbnailAlt ? `${caseStudy.thumbnailAlt} - Image ${i + 1}` : `${caseStudy.title} - ${caseStudy.subtitle} 상세 이미지 ${i + 1} | Studio Beginus Case Study`}
                 className="w-full h-full object-cover flex-shrink-0"
                 decoding="async"
               />
@@ -426,7 +426,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                           <iframe 
                             src={item.url} 
                             className="w-full h-full object-cover" 
-                            title={`Project Video ${idx + 1}`}
+                            title={item.alt || `Project Video ${idx + 1}`}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowFullScreen
                           />
@@ -434,7 +434,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                         {item.type === 'image' && (
                            <img 
                               src={item.url} 
-                              alt={`Project Visual ${idx + 1}`} 
+                              alt={item.alt || `Project Visual ${idx + 1} - ${project.title}`} 
                               className="w-full h-full object-cover cursor-zoom-in hover:scale-105 transition-transform duration-700"
                               onClick={() => window.open(item.url, '_blank')}
                            />
@@ -449,7 +449,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                               {item.thumb && (
                                 <img 
                                    src={item.thumb} 
-                                   alt="Link Thumbnail" 
+                                   alt={item.alt || `${project.title} 관련 링크 썸네일 ${idx + 1}`} 
                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                               )}
@@ -469,7 +469,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                 <div className="w-full aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-inner">
                   <img 
                     src={project.visual} 
-                    alt={project.title} 
+                    alt={project.imageAlt || `${project.title} 비주얼 아카이브 메인 이미지 | Studio Beginus`} 
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -725,7 +725,7 @@ const App: React.FC = () => {
                 <div className="w-full mt-4">
                   <img 
                     src="https://raw.githubusercontent.com/beginus-director/website/0aedd91010a82f886b06ceff4d3d81c52d05c6c2/director_1.png" 
-                    alt="Director Lee Jiyoung" 
+                    alt="Director Lee Jiyoung Profile - Studio Beginus" 
                     className="w-full h-auto block"
                     decoding="async"
                     onError={(e) => {
@@ -788,7 +788,7 @@ const App: React.FC = () => {
                           >
                             <img 
                               src={project.image} 
-                              alt={project.title} 
+                              alt={project.imageAlt || `${project.title} - ${project.description}`} 
                               className={project.id === 'yourown' 
                                 ? "block w-auto max-w-[160px] md:max-w-[240px] h-auto mx-auto object-contain"
                                 : "w-full h-full object-cover"} 
@@ -799,7 +799,7 @@ const App: React.FC = () => {
                           <div className={`w-full ${project.id === 'yourown' ? 'mx-auto' : 'h-full'}`}>
                             <img 
                               src={project.image} 
-                              alt={project.title} 
+                              alt={project.imageAlt || `${project.title} - ${project.description}`} 
                               className={project.id === 'yourown' 
                                 ? "block w-auto max-w-[160px] md:max-w-[240px] h-auto mx-auto object-contain"
                                 : "w-full h-full object-cover"} 
@@ -821,7 +821,7 @@ const App: React.FC = () => {
                           <div className="overflow-hidden aspect-[3/4] bg-morningSky rounded-none">
                             <img 
                               src={caseStudy.thumbnail} 
-                              alt={caseStudy.title} 
+                              alt={caseStudy.thumbnailAlt || `${caseStudy.title} - ${caseStudy.subtitle} by Studio Beginus`} 
                               className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700 ease-out rounded-none" 
                               loading="lazy"
                             />
@@ -960,7 +960,7 @@ const App: React.FC = () => {
                 {/* Image - Using Footer Logo Source (logo_2.png) as requested */}
                 <img 
                   src="https://raw.githubusercontent.com/beginus-director/website/0ee73fcf93582ee0899847969c2d9fd60b76757a/logo_2.png"
-                  alt="Studio Beginus"
+                  alt="Studio Beginus Branding and Content Studio Logo"
                   className={`absolute h-16 md:h-24 w-auto object-contain transition-opacity duration-1000 ${showLogo ? 'opacity-100' : 'opacity-0'}`}
                 />
               </div>
@@ -1025,7 +1025,7 @@ const App: React.FC = () => {
                       <div className="aspect-square bg-gray-50 border border-black/5 overflow-hidden mb-4 relative">
                          <img 
                            src={p.image} 
-                           alt={p.title}
+                           alt={p.imageAlt || `${p.title} - ${p.tagline} | Studio Beginus`}
                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
                          />
                       </div>

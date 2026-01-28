@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const Logo = ({ className = "" }) => {
@@ -13,7 +14,7 @@ const Logo = ({ className = "" }) => {
   return (
     <img 
       src={src}
-      alt="STUDIO BEGINUS"
+      alt="Studio Beginus - Branding & Content Creative Studio Logo"
       className={`${className} object-contain`}
       style={{ display: 'block' }}
       loading="eager"

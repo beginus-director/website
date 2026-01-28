@@ -16,12 +16,14 @@ export const PROJECTS: Project[] = [
     approach: 'Story / Artist Interview / Art Life 3가지 시리즈로 브랜드 스토리 구축',
     result: '54개 이상의 브랜드 콘텐츠 제작',
     image: 'https://raw.githubusercontent.com/beginus-director/website/8f229e40e707630d570e978cb6bad72a37c18a88/yourown_mockup.png',
+    imageAlt: 'YOUROWN 유로운 브랜드 아이덴티티 및 아트 커미션 서비스 플랫폼 모바일 목업 | 스튜디오 비기너스 브랜딩 포트폴리오',
     caseStudies: [
       {
         id: 'case-01',
         title: 'FROM ART TO PASTRY',
         subtitle: 'JAEIN Patisserie',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/5a9a04403e4be3d06902859bbe717940e80999e1/case1_3.png',
+        thumbnailAlt: '이재인 셰프와 김한나 작가의 아트 콜라보레이션 케이크 | 스튜디오 비기너스 F&B 브랜딩 및 콘텐츠 기획',
         images: [
           'https://raw.githubusercontent.com/beginus-director/website/5a9a04403e4be3d06902859bbe717940e80999e1/case1_3.png',
           'https://raw.githubusercontent.com/beginus-director/website/5a9a04403e4be3d06902859bbe717940e80999e1/case1_6.png',
@@ -44,6 +46,7 @@ export const PROJECTS: Project[] = [
         title: 'PERSONAL COLLECTION',
         subtitle: 'Magazine C',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_1.png',
+        thumbnailAlt: '매거진 C 전은경 디렉터의 퍼스널 컬렉션 인터뷰 | 정이지 작가 작품과 브랜드 스토리텔링',
         images: [
           'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_1.png',
           'https://raw.githubusercontent.com/beginus-director/website/6c18c60e8c781f1590d96c07a72aadb5fb152adf/case3_2.png',
@@ -66,6 +69,7 @@ export const PROJECTS: Project[] = [
         title: 'FROM PERSONAL TO PUBLIC',
         subtitle: 'Oh!Boy Magazine',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_1.png',
+        thumbnailAlt: '오보이 매거진 김현성 편집장 개인 의뢰 및 UNSELF 2025 전시 기획 | 스튜디오 비기너스 아트 마케팅',
         images: [
           'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_1.png',
           'https://raw.githubusercontent.com/beginus-director/website/155d102e68ff7a59eddaafc9072f7f878448a4c6/case4_2.png',
@@ -89,6 +93,7 @@ export const PROJECTS: Project[] = [
         title: 'BRAND COMMISSION',
         subtitle: 'PEER COFFEE',
         thumbnail: 'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
+        thumbnailAlt: '피어커피 종각점 리뉴얼 오픈 브랜드 커미션 모유진 작가 작품 | 스튜디오 비기너스 공간 브랜딩',
         images: [
           'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_1.png',
           'https://raw.githubusercontent.com/beginus-director/website/f7c6366414c17ecea3f42df7a944b8d8b89b694b/case2_2.png',
@@ -123,27 +128,32 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     period: '2025.06 — 2026.01',
     tags: ["#브랜딩", "#예술", "#라이프스타일", "#SNS마케팅"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
+    imageAlt: '유로운 미술 작품 의뢰 서비스 브랜드 콘텐츠 기획 및 인스타그램 마케팅 | 스튜디오 비기너스',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_yourown.png',
     media: [
       {
         type: 'link',
         url: 'https://www.instagram.com/p/DTuqNB8k32y/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v01.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v01.png',
+        alt: '유로운 브랜드 스토리텔링 및 인스타그램 콘텐츠 | 스튜디오 비기너스 SNS 마케팅'
       },
       {
         type: 'link',
         url: 'https://yourown.ghost.io/story-10-yorisa-jaeryoyi-sancaeg-jeoja-yona/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v02.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v02.png',
+        alt: '요리사와 재료의 산책 저자 요나 인터뷰 | 스튜디오 비기너스 에디토리얼 콘텐츠 아카이브'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/p/DMK2IMLTkmv/?img_index=1',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v03.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v03.png',
+        alt: '유로운 아티스트 인터뷰 및 작품 소개 카드뉴스 | 스튜디오 비기너스 콘텐츠 제작'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/p/DNp2zjNzx3M/?img_index=1',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v04.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/06e62332f83bc99f737d07d954b5407a345ece8b/archive_yourown_v04.png',
+        alt: '유로운 서비스 가이드 및 브랜딩 콘텐츠 | 스튜디오 비기너스 SNS 운영'
       }
     ],
     challenge: "'미술 작품 의뢰'라는 새로운 영역을 대중에게 소개하고, 브랜드만의 고유한 정체성을 구축할 콘텐츠 전략이 필요했습니다.",
@@ -170,22 +180,26 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     period: '2025.04 — 2025.05',
     tags: ["#반려동물", "#브랜딩", "#SNS마케팅"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_trusty.png',
+    imageAlt: '트러스티푸드 동결건조 펫푸드 저속노화 캠페인 브랜딩 및 SNS 콘텐츠 | 스튜디오 비기너스',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_trusty.png',
     media: [
       {
         type: 'link',
         url: 'https://www.instagram.com/p/DJDs43Tv0sD/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/99541c2c995dc82857e573a4ad0a926e79f8644c/archive_trusty_v1.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/99541c2c995dc82857e573a4ad0a926e79f8644c/archive_trusty_v1.png',
+        alt: '트러스티푸드 저속노화 클래스 숏폼 콘텐츠 | 스튜디오 비기너스 릴스 기획'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/p/DJF7G6NSW6H/?img_index=1',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/99541c2c995dc82857e573a4ad0a926e79f8644c/archive_trusty_v2.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/99541c2c995dc82857e573a4ad0a926e79f8644c/archive_trusty_v2.jpg',
+        alt: '반려동물 건강 정보를 담은 카드뉴스 및 인스타그램 마케팅 | 스튜디오 비기너스'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/p/DJN1yMJPVB9/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/99541c2c995dc82857e573a4ad0a926e79f8644c/archive_trusty_v3.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/99541c2c995dc82857e573a4ad0a926e79f8644c/archive_trusty_v3.png',
+        alt: '트푸터뷰: 반려동물과 함께하는 인터뷰 시리즈 콘텐츠 | 스튜디오 비기너스 에디토리얼'
       }
     ],
     challenge: '동결건조 펫푸드 브랜드 트러스티푸드의 인스타그램 콘텐츠 리뉴얼 시점에서, 제품의 차별점을 효과적으로 전달하고 반려인들의 자발적 참여를 이끌어낼 새로운 콘텐츠 전략이 필요했습니다.',
@@ -211,27 +225,32 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     period: '2023.07 - 2024.09',
     tags: ["#헬스케어", "#뷰티", "#SNS마케팅", "#디지털콘텐츠"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_restylane.png',
+    imageAlt: '갈더마코리아 레스틸렌 프리미엄 필러 브랜드 마케팅 및 릴스 챌린지 기획 | 스튜디오 비기너스',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_restylane.png',
     media: [
       {
         type: 'link',
         url: 'https://youtube.com/shorts/GwqIcukHJGU?feature=share',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v01.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v01.png',
+        alt: '레스틸렌 아이라이트 캠페인 숏폼 영상 및 브랜드 필름 | 스튜디오 비기너스 비주얼 디렉팅'
       },
       {
         type: 'link',
         url: 'https://youtu.be/-fvlFP2yqus?si=1taeRw4aN70XNG23',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v02.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v02.png',
+        alt: '의료 전문가 인터뷰 및 B2B 마케팅 콘텐츠 | 스튜디오 비기너스 기획'
       },
       {
         type: 'link',
         url: 'https://dorestylane.com/skinboosters/index_dev.php',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v03.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v03.png',
+        alt: '레스틸렌 스킨부스터 브랜드 마이크로사이트 기획 및 제작 | 스튜디오 비기너스 웹 콘텐츠'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/reel/C7i2wURszY2/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v04.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/55eaf23f3d1ef90d48bc18c31427cbe016d71060/archive_restylane_v04.jpg',
+        alt: '인플루언서 마케팅 및 SNS 바이럴 캠페인 콘텐츠 | 스튜디오 비기너스'
       }
     ],
     challenge: '의료기기 광고 심의 규제로 인해 제품의 핵심 차별점을 직접 언급하거나 효능을 구체적으로 표현할 수 없는 상황. 정보 전달 위주의 딱딱한 기존 방식을 벗어나, 타겟에게 브랜드를 직관적이고 효과적으로 각인시킬 새로운 커뮤니케이션 전략이 필요했습니다.',
@@ -258,27 +277,32 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     period: '2023.01 — 2023.05',
     tags: ["#IT", "#라이프스타일", "#SNS마케팅", "#디지털콘텐츠"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_lg.png',
+    imageAlt: 'LG 스탠바이미 글로벌 라이프스타일 콘텐츠 디렉팅 및 해외 크리에이터 협업 | 스튜디오 비기너스',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_lg.png',
     media: [
       {
         type: 'link',
         url: 'https://www.instagram.com/p/CqcM1r0LRip/?img_index=1',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v01.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v01.jpg',
+        alt: '해외 크리에이터와 협업한 LG 스탠바이미 글로벌 캠페인 이미지 | 스튜디오 비기너스'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/p/CrSRUFkrgFm/?img_index=1',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v02.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v02.jpg',
+        alt: '라이프스타일 맞춤형 스탠바이미 활용법 콘텐츠 | 스튜디오 비기너스 콘텐츠 전략'
       },
       {
         type: 'link',
         url: 'https://youtu.be/ZujUVImHCqw?si=AjVdxtgTHDkcjMrY',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v03.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v03.png',
+        alt: '감도 높은 비주얼의 브랜드 필름 및 유튜브 영상 콘텐츠 | 스튜디오 비기너스'
       },
       {
         type: 'image',
         url: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v04.png',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v04.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/b34bcc9bf072bebd10b49c36e4851c11459e5b73/archive_lg_v04.png',
+        alt: '네이버 카페 커뮤니티 및 인스타그램 통합 비주얼 디렉팅 | 스튜디오 비기너스'
       }
     ],
     challenge: '글로벌 시장에서 현지 유저들의 다양한 라이프스타일에 자연스럽게 녹아드는 고감도 비주얼 소스 확보가 필요했습니다. 국내 중심 마케팅 문법을 탈피하여 해외 시장에서도 선호될 수 있는 진정성 있는 브랜드 내러티브 구축이 과제였습니다.',
@@ -305,27 +329,32 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     period: '2019 — 2022',
     tags: ["#뷰티", "#라이프스타일", "#매거진", "#에디토리얼"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_doosan.png',
+    imageAlt: '얼루어 보그 W 매거진 뷰티 에디토리얼 및 브랜디드 콘텐츠 기획 | 스튜디오 비기너스 에디터 포트폴리오',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_doosan.png',
     media: [
       {
         type: 'link',
         url: 'https://www.allurekorea.com/2019/05/26/2019-allure-greencampaign/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v01.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v01.jpg',
+        alt: '얼루어 코리아 그린 캠페인 에디토리얼 기사 및 현장 취재 | 스튜디오 비기너스 에디팅'
       },
       {
         type: 'link',
         url: 'https://www.instagram.com/p/B1Ii3wan28G/?img_index=2',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v02.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v02.jpg',
+        alt: '뷰티 브랜드 협업 애드버토리얼 및 화보 기획 | 스튜디오 비기너스 매거진 에디터'
       },
       {
         type: 'link',
         url: 'https://www.vogue.co.kr/2018/03/20/%EB%AF%B8%ED%8A%B8-%EB%9F%AC%EB%B2%84%EC%9D%98-%EC%B5%9C%EC%8B%A0-%EC%A6%90%EA%B2%A8%EC%B0%BE%EA%B8%B0/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v03.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v03.jpg',
+        alt: '보그 코리아 라이프스타일 피처 기사 및 인터뷰 | 스튜디오 비기너스 에디토리얼'
       },
       {
         type: 'link',
         url: 'https://www.wkorea.com/2019/09/29/%eb%82%b4-%eb%aa%b8-%ea%b8%8d%ec%a0%95%ec%a3%bc%ec%9d%98-%ec%8b%9c%eb%8c%80%ec%9d%98-%eb%b3%b4%eb%94%94-%ec%bc%80%ec%96%b4-%eb%b8%8c%eb%9e%9c%eb%93%9c/',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v04.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/08cd69811ae3330ad5b7469893f99759cd7402e0/archive_doosan_v04.jpg',
+        alt: '더블유 코리아 뷰티 트렌드 리포트 및 칼럼 기고 | 스튜디오 비기너스'
       }
     ],
     challenge: '컨트리뷰팅 에디터로서 ALLURE, VOGUE, W Korea 세 개 매거진의 서로 다른 톤앤매너와 독자층을 이해하고, 각 매체의 지면·웹·SNS를 아우르는 통합 콘텐츠를 일관된 퀄리티로 제작해야 했습니다. 특히 뷰티와 라이프스타일 피처 영역에서 브랜드 협업 애드버토리얼은 광고와 에디토리얼의 경계에서 매거진의 신뢰도를 유지하면서도 브랜드 메시지를 효과적으로 전달하는 섬세한 균형이 필요했습니다.',
@@ -353,27 +382,32 @@ export const ARCHIVE_PROJECTS: ArchiveProject[] = [
     period: '2017 — 2019',
     tags: ["#패션", "#이커머스", "#디지털콘텐츠"],
     image: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_ssf.png',
+    imageAlt: '삼성물산 패션부문 SSF SHOP 온라인 편집샵 기획전 웹디자인 및 스타일링 콘텐츠 | 스튜디오 비기너스',
     visual: 'https://raw.githubusercontent.com/beginus-director/website/106edbd05d670597ae82329c7061c7379bdc0167/archive_ssf.png',
     media: [
       {
         type: 'image',
         url: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v1.app.jpg',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v1.app.jpg'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v1.app.jpg',
+        alt: 'SSF SHOP 모바일 앱 기획전 메인 디자인 및 배너 | 스튜디오 비기너스 UX Writing'
       },
       {
         type: 'image',
         url: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v2.png',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v2.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v2.png',
+        alt: 'Get the Style 패션 스타일링 큐레이션 콘텐츠 | 스튜디오 비기너스 콘텐츠 제작'
       },
       {
         type: 'image',
         url: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v3.png',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v3.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v3.png',
+        alt: '시즌별 패션 프로모션 및 상세페이지 디자인 | 스튜디오 비기너스'
       },
       {
         type: 'image',
         url: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v4.png',
-        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v4.png'
+        thumb: 'https://raw.githubusercontent.com/beginus-director/website/51664990dd14aa9e477e3a32f14b0e8dc31359a5/archive_ssf_v4.png',
+        alt: '온라인 편집샵 상품 소개 콘텐츠 및 비주얼 디렉팅 | 스튜디오 비기너스'
       }
     ],
     challenge: 'SSF SHOP은 빈폴, 구호, 갤럭시 등 수십 개의 자체 브랜드와 글로벌 브랜드를 함께 운영하는 온라인 편집샵으로, 각 브랜드의 고유한 아이덴티티를 존중하면서도 플랫폼 차원의 통합된 브랜드 경험을 제공해야 했습니다. 경쟁사 대비 차별화된 콘텐츠 전략과 고객 참여를 이끌어낼 스타일링 큐레이션이 필요했고, 기획전과 프로모션을 통한 지속적인 고객 유입과 매출 증대가 요구되었습니다.',
