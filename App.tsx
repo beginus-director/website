@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Instagram, Mail, Phone, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, Instagram, Mail, Phone, Menu, X, ArrowUpRight, CheckCircle2, ChevronLeft, ChevronRight, ArrowLeft, ArrowUp } from 'lucide-react';
 import { PROJECTS, SERVICES, WORK_PROCESS, SERVICE_TOOLS, ARCHIVE_PROJECTS } from './constants';
 import { CaseStudy, ArchiveProject, Project } from './types';
 import Logo from './Logo';
@@ -186,14 +186,20 @@ const Footer = () => (
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
         <div>
           <Logo className="h-8 md:h-10 w-auto text-morningSky mb-8" />
-          <div className="text-[14px] text-morningSky/80 space-y-2 uppercase tracking-widest font-bold break-keep">
+          {/* Modified: tighter spacing (space-y-1, leading-tight) */}
+          <div className="text-[14px] text-morningSky/80 space-y-1 leading-tight uppercase tracking-widest font-bold break-keep">
             <p>Studio Beginus 스튜디오 비기너스</p>
             <p>Director Jiyoung Lee</p>
             <p>Business: 260-09-03112</p>
           </div>
         </div>
-        <div className="text-[14px] text-morningSky/80 text-right md:max-w-md">
-          <p className="mb-4 font-bold text-morningSky leading-relaxed break-keep">Beginus for Beginners — Begin again. Fail better. Grow together.</p>
+        {/* Modified: Right aligned on all screens, flex-col, items-end */}
+        <div className="w-full md:w-auto flex flex-col items-end text-right text-sm md:text-[14px] text-morningSky/80 md:max-w-md">
+          <p className="mb-4 font-bold text-morningSky leading-relaxed break-keep md:whitespace-nowrap">
+            Beginus for Beginners <span className="hidden md:inline">—</span>
+            <br className="block md:hidden" />
+            Begin again. Fail better. Grow together.
+          </p>
           <p className="text-[12px] opacity-60 break-keep">&copy; 2026 Studio Beginus. All rights reserved.</p>
         </div>
       </div>
@@ -229,21 +235,18 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
       <div className="absolute inset-0 bg-brandBlack/90 backdrop-blur-md"></div>
       
       <div 
-        className="relative w-full max-w-6xl max-h-[90vh] bg-beginningIvory rounded-none shadow-2xl overflow-hidden animate-fade-in flex flex-col lg:flex-row"
+        className="relative w-full max-w-6xl h-[85vh] md:h-[90vh] bg-beginningIvory rounded-none shadow-2xl overflow-y-auto lg:overflow-hidden animate-fade-in flex flex-col lg:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
-        
-        {/* Floating Close Button */}
         <button 
           onClick={onClose} 
-          className="absolute top-5 right-5 lg:top-8 lg:right-8 z-[120] p-3 bg-brandBlack/10 hover:bg-brandBlack text-brandBlack hover:text-white rounded-none backdrop-blur-sm transition-all duration-300"
+          className="absolute top-4 right-4 lg:top-8 lg:right-8 z-[120] p-3 bg-brandBlack/10 hover:bg-brandBlack text-brandBlack hover:text-white rounded-none backdrop-blur-sm transition-all duration-300"
           aria-label="Close modal"
         >
           <X size={24} />
         </button>
 
-        {/* Left: Carousel Section */}
-        <div className="w-full lg:w-[55%] relative group bg-black aspect-[4/5] overflow-hidden">
+        <div className="w-full lg:w-[55%] relative group bg-black aspect-[4/5] lg:aspect-auto shrink-0 lg:h-full overflow-hidden">
           <div className="absolute inset-0 flex transition-transform duration-700 cubic-bezier(0.19, 1, 0.22, 1)" style={{ transform: `translateX(-${currentImgIndex * 100}%)` }}>
             {caseStudy.images.map((img, i) => (
               <img 
@@ -272,7 +275,7 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
               >
                 <ChevronRight size={24} />
               </button>
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+              <div className="absolute bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
                 {caseStudy.images.map((_, i) => (
                   <button 
                     key={i}
@@ -285,52 +288,55 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
           )}
         </div>
         
-        {/* Right: Content Section */}
-        <div className="w-full lg:w-[45%] bg-beginningIvory flex flex-col justify-center p-10 lg:p-14 overflow-hidden">
-          <div className="max-w-md mx-auto w-full space-y-5 lg:space-y-6">
-            <div className="space-y-1">
-              <span className="text-morningSky font-black uppercase tracking-[0.2em] text-[10px] block">
-                CASE {caseId} / {caseStudy.partner.split('|')[0].trim()}
-              </span>
-              <h3 className="text-[28px] md:text-[32px] font-extrabold text-brandBlack leading-[1.1] tracking-[-0.04em] break-keep">
-                {caseStudy.title}
-              </h3>
-              <p className="text-[14px] font-bold text-gray-400 italic leading-tight break-keep">{caseStudy.subtitle}</p>
-            </div>
+        <div 
+          className="w-full lg:w-[45%] relative flex flex-col bg-beginningIvory h-auto lg:h-full lg:overflow-y-auto custom-scrollbar"
+        >
+          <div className="p-8 lg:p-14 pb-20">
+            <div className="max-w-md mx-auto w-full space-y-5 lg:space-y-6">
+              <div className="space-y-1 pt-4 lg:pt-0">
+                <span className="text-morningSky font-black uppercase tracking-[0.2em] text-[10px] block">
+                  CASE {caseId} / {caseStudy.partner.split('|')[0].trim()}
+                </span>
+                <h3 className="text-[24px] md:text-[32px] font-extrabold text-brandBlack leading-[1.1] tracking-[-0.04em] break-keep">
+                  {caseStudy.title}
+                </h3>
+                <p className="text-[14px] font-bold text-gray-400 italic leading-tight break-keep">{caseStudy.subtitle}</p>
+              </div>
 
-            <div className="grid grid-cols-1 gap-4 lg:gap-5">
+              <div className="grid grid-cols-1 gap-4 lg:gap-5">
+                <div className="space-y-1">
+                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h5>
+                  <p className="text-[15px] md:text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.partner}</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h5>
+                    <p className="text-[15px] md:text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.artist}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h5>
+                    <p className="text-[15px] md:text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.type}</p>
+                  </div>
+                </div>
+              </div>
+
               <div className="space-y-1">
-                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h5>
-                <p className="text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.partner}</p>
+                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h5>
+                <p className="text-gray-600 text-[15px] leading-[1.6] tracking-[-0.01em] font-medium break-keep">{caseStudy.overview}</p>
               </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h5>
-                  <p className="text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.artist}</p>
-                </div>
-                <div className="space-y-1">
-                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h5>
-                  <p className="text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.type}</p>
-                </div>
+
+              <div className="space-y-2">
+                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h5>
+                <ul className="space-y-1.5">
+                  {caseStudy.achievements.map((ach, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <CheckCircle2 className="text-morningSky mr-2 mt-1 flex-shrink-0" size={14} />
+                      <span className="text-brandBlack font-bold leading-tight text-[14px] break-keep">{ach}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-
-            <div className="space-y-1">
-              <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h5>
-              <p className="text-gray-600 text-[15px] leading-[1.6] tracking-[-0.01em] font-medium break-keep">{caseStudy.overview}</p>
-            </div>
-
-            <div className="space-y-2">
-              <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h5>
-              <ul className="space-y-1.5">
-                {caseStudy.achievements.map((ach, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <CheckCircle2 className="text-morningSky mr-2 mt-1 flex-shrink-0" size={14} />
-                    <span className="text-brandBlack font-bold leading-tight text-[14px] break-keep">{ach}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>
@@ -358,10 +364,9 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
       onClick={onClose}
     >
       <div 
-        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-4xl bg-white shadow-2xl overflow-y-auto animate-fade-in flex flex-col md:rounded-none"
+        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-4xl bg-white shadow-2xl overflow-y-auto animate-fade-in flex flex-col md:rounded-none custom-scrollbar"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Fixed Close Button */}
         <button 
           onClick={onClose} 
           className="fixed md:absolute top-0 right-0 z-[120] p-5 md:p-6 text-brandBlack hover:text-morningSky transition-colors bg-white/80 backdrop-blur-sm md:bg-transparent"
@@ -371,7 +376,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
         </button>
 
         <div className="p-6 md:p-12 pb-20 md:pb-12">
-          {/* 1. Header */}
+          {/* Header */}
           <div className="mb-10 max-w-2xl pt-8 md:pt-0">
             <h2 className="text-[28px] md:text-[40px] font-extrabold leading-[1.1] tracking-[-0.03em] mb-3 text-brandBlack break-keep">
               {project.title}
@@ -390,7 +395,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
             </div>
           </div>
 
-          {/* 2. Info Grid - Editorial Style Box */}
+          {/* Info Grid */}
           <div className="bg-gray-50 p-6 md:p-8 rounded-lg mb-12">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-y-6 md:gap-x-8 lg:gap-x-12">
               <InfoItem label="Client" value={project.client} />
@@ -408,7 +413,7 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
             </div>
           </div>
 
-          {/* 3. Visual Archive Section */}
+          {/* Visual Archive */}
           <div className="mb-12">
              <h3 className="text-[12px] font-black uppercase tracking-widest text-morningSky mb-6">Visual Archive</h3>
              
@@ -448,7 +453,6 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                               )}
-                              {/* Overlay Link */}
                               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors flex items-center justify-center">
                                  <div className="flex items-center space-x-1 border-b border-brandIvory/70 pb-1 text-brandIvory hover:opacity-80 transition-opacity">
                                     <span className="text-sm md:text-base font-bold">View Original</span>
@@ -462,7 +466,6 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
                   })}
                 </div>
              ) : (
-                // Fallback to legacy single visual
                 <div className="w-full aspect-video bg-gray-100 rounded-lg overflow-hidden shadow-inner">
                   <img 
                     src={project.visual} 
@@ -473,9 +476,8 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
              )}
           </div>
 
-          {/* 4. Content Body */}
+          {/* Content Body */}
           <div className="max-w-3xl space-y-12">
-            {/* Challenge */}
             <div className="border-l-4 border-morningSky pl-6 py-1">
               <h3 className="text-[12px] font-black uppercase tracking-widest text-morningSky mb-3">The Challenge</h3>
               <p className="text-[18px] md:text-[20px] font-medium text-brandBlack italic leading-[1.6] break-keep">
@@ -483,7 +485,6 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
               </p>
             </div>
 
-            {/* Solution */}
             <div>
               <h3 className="text-[20px] md:text-[24px] font-extrabold text-brandBlack mb-4">Solution</h3>
               <ul className="space-y-3">
@@ -496,7 +497,6 @@ const ArchiveModal = ({ project, onClose }: { project: ArchiveProject; onClose: 
               </ul>
             </div>
 
-            {/* Result */}
             <div>
               <h3 className="text-[20px] md:text-[24px] font-extrabold text-brandBlack mb-4">Key Results</h3>
               <ul className="space-y-3">
@@ -520,6 +520,25 @@ const App: React.FC = () => {
   const [selectedArchive, setSelectedArchive] = useState<ArchiveProject | null>(null);
   const [showLogo, setShowLogo] = useState(false);
   const [currentPage, setCurrentPage] = useState<'home' | 'archive'>('home');
+  const [showGlobalTopBtn, setShowGlobalTopBtn] = useState(false);
+
+  // Global Scroll Listener
+  useEffect(() => {
+    const handleScroll = () => {
+      // Threshold 300px
+      if (window.scrollY > 300) {
+        setShowGlobalTopBtn(true);
+      } else {
+        setShowGlobalTopBtn(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+  
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -561,6 +580,17 @@ const App: React.FC = () => {
     <div className="antialiased text-brandBlack bg-white font-sans">
       <CustomCursor />
       
+      {/* Global Scroll Top Button (Visible when no modal is active) */}
+      {!selectedCase && !selectedArchive && (
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[100] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-brandBlack text-white hover:bg-morningSky transition-all duration-500 ease-in-out rounded-full shadow-lg ${showGlobalTopBtn ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-4 pointer-events-none'}`}
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
+
       {currentPage === 'home' ? (
         <>
           <Navbar onScroll={handleNavigation} />
