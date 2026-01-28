@@ -78,7 +78,7 @@ const Navbar = ({ onScroll }: { onScroll: (id: string) => void }) => {
   }, [isOpen]);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100" aria-label="Main Navigation">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
         <a 
           href="#" 
@@ -182,6 +182,7 @@ const SectionHeader = ({ title, subtitle, light }: { title: string; subtitle?: R
 
 const Footer = () => (
   <footer className="py-16 md:py-20 bg-brandBlack text-morningSky border-t border-white/5">
+    <h2 className="sr-only">Footer Contact Information</h2>
     <div className="max-w-7xl mx-auto px-6 lg:px-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-12">
         <div>
@@ -297,37 +298,37 @@ const CaseStudyModal = ({ caseStudy, index, onClose }: { caseStudy: CaseStudy; i
                 <span className="text-morningSky font-black uppercase tracking-[0.2em] text-[10px] block">
                   CASE {caseId} / {caseStudy.partner.split('|')[0].trim()}
                 </span>
-                <h3 className="text-[24px] md:text-[32px] font-extrabold text-brandBlack leading-[1.1] tracking-[-0.04em] break-keep">
+                <h2 className="text-[24px] md:text-[32px] font-extrabold text-brandBlack leading-[1.1] tracking-[-0.04em] break-keep">
                   {caseStudy.title}
-                </h3>
+                </h2>
                 <p className="text-[14px] font-bold text-gray-400 italic leading-tight break-keep">{caseStudy.subtitle}</p>
               </div>
 
               <div className="grid grid-cols-1 gap-4 lg:gap-5">
                 <div className="space-y-1">
-                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h5>
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Partner</h3>
                   <p className="text-[15px] md:text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.partner}</p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h5>
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Artist</h3>
                     <p className="text-[15px] md:text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.artist}</p>
                   </div>
                   <div className="space-y-1">
-                    <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h5>
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Type</h3>
                     <p className="text-[15px] md:text-[16px] text-brandBlack font-extrabold leading-tight break-keep">{caseStudy.type}</p>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h5>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Overview</h3>
                 <p className="text-gray-600 text-[15px] leading-[1.6] tracking-[-0.01em] font-medium break-keep">{caseStudy.overview}</p>
               </div>
 
               <div className="space-y-2">
-                <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h5>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 border-b border-gray-200 pb-0.5">Achievements</h3>
                 <ul className="space-y-1.5">
                   {caseStudy.achievements.map((ach, idx) => (
                     <li key={idx} className="flex items-start">
@@ -827,12 +828,12 @@ const App: React.FC = () => {
                             />
                           </div>
                           <div className="mt-4 flex flex-col items-start">
-                            <h4 className="text-[10px] font-black text-morningSky uppercase tracking-[0.2em] mb-1 leading-none">
+                            <span className="text-[10px] font-black text-morningSky uppercase tracking-[0.2em] mb-1 leading-none block">
                               {caseStudy.title}
-                            </h4>
-                            <h3 className="text-[18px] md:text-[20px] font-extrabold text-white leading-[1.2] tracking-[-0.03em] mb-2 line-clamp-1 break-keep">
+                            </span>
+                            <h4 className="text-[18px] md:text-[20px] font-extrabold text-white leading-[1.2] tracking-[-0.03em] mb-2 line-clamp-1 break-keep">
                               {caseStudy.subtitle}
-                            </h3>
+                            </h4>
                             <div className="inline-flex items-center text-[12px] font-bold text-gray-400 group-hover/card:text-morningSky transition-colors">
                               View details <ChevronRight size={14} className="ml-1 group-hover/card:translate-x-1 transition-transform" />
                             </div>
@@ -954,9 +955,9 @@ const App: React.FC = () => {
             <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
               <div className="mb-12 h-32 md:h-40 flex items-center justify-center relative">
                 {/* Text */}
-                <p className={`absolute text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] text-brandBlack transition-opacity duration-1000 ${showLogo ? 'opacity-0' : 'opacity-100'}`}>
+                <h2 className={`absolute text-[32px] md:text-[56px] font-extrabold leading-[1.1] tracking-[-0.04em] text-brandBlack transition-opacity duration-1000 ${showLogo ? 'opacity-0' : 'opacity-100'}`}>
                   The story begins with us
-                </p>
+                </h2>
                 {/* Image - Using Footer Logo Source (logo_2.png) as requested */}
                 <img 
                   src="https://raw.githubusercontent.com/beginus-director/website/0ee73fcf93582ee0899847969c2d9fd60b76757a/logo_2.png"
@@ -992,7 +993,7 @@ const App: React.FC = () => {
            {selectedArchive && <ArchiveModal project={selectedArchive} onClose={() => setSelectedArchive(null)} />}
            
           {/* Archive Header */}
-          <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+          <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100" aria-label="Archive Navigation">
             <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
               <button 
                 onClick={() => {
@@ -1029,7 +1030,7 @@ const App: React.FC = () => {
                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" 
                          />
                       </div>
-                      <h3 className="text-xl font-bold text-brandBlack mt-4 group-hover:text-morningSky transition-colors">{p.title}</h3>
+                      <h2 className="text-xl font-bold text-brandBlack mt-4 group-hover:text-morningSky transition-colors">{p.title}</h2>
                       <div className="flex flex-wrap gap-2 mt-1">
                         {p.tags.map((tag, tIdx) => (
                            <span key={tIdx} className="text-sm text-gray-500 font-medium">{tag}</span>
